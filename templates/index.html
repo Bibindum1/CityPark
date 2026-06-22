@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+
+{% block title %}CityPark • Ресторан{% endblock %}
+
+{% block content %}
+<section class="hero" id="home" style="
+    min-height: calc(100vh - 84px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+    overflow: hidden;
+    background: linear-gradient(rgba(8, 8, 8, 0.85), rgba(8, 8, 8, 0.9)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    padding: 60px 0;
+">
+    <div class="container">
+        <div style="
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 60px;
+            align-items: center;
+        ">
+            <div>
+                <div style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px 18px;
+                    border-radius: 999px;
+                    background: rgba(212, 175, 55, 0.12);
+                    border: 1px solid var(--border-gold);
+                    font-size: 13px;
+                    color: var(--gold);
+                    margin-bottom: 24px;
+                    font-weight: 500;
+                ">
+                    🍽 CityPark • Ресторан • Авторская кухня • Вино • Премиум сервис
+                </div>
+                <h1 style="
+                    font-family: 'Playfair Display', serif;
+                    font-size: clamp(52px, 8vw, 86px);
+                    line-height: 1.02;
+                    margin-bottom: 24px;
+                    font-weight: 800;
+                    letter-spacing: -2px;
+                ">
+                    Ресторан,<br>
+                    <span style="color: var(--gold);">в который хочется</span><br>
+                    возвращаться
+                </h1>
+                <p style="
+                    max-width: 640px;
+                    font-size: 19px;
+                    color: var(--text-secondary);
+                    margin-bottom: 32px;
+                    line-height: 1.7;
+                ">
+                    Утонченный ресторан в центре города с авторской кухней премиум-класса,
+                    изысканным винным списком и атмосферой для ярких встреч, деловых встреч и особых моментов.
+                </p>
+
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 36px;">
+                    <a href="{% url 'menu' %}" class="btn">Смотреть меню</a>
+                    <a href="{% url 'menu' %}" class="btn btn-outline">Все меню</a>
+                    <a href="{% url 'booking' %}" class="btn btn-outline">Забронировать стол</a>
+                </div>
+
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <div style="
+                        min-width: 160px;
+                        padding: 18px 20px;
+                        border-radius: 20px;
+                        background: rgba(212, 175, 55, 0.08);
+                        border: 1px solid var(--border-gold);
+                        backdrop-filter: blur(10px);
+                    ">
+                        <strong style="display: block; font-size: 22px; margin-bottom: 6px; color: var(--gold); font-weight: 700;">12:00–24:00</strong>
+                        <span style="font-size: 13px; color: var(--text-muted);">Ежедневно</span>
+                    </div>
+                    <div style="
+                        min-width: 160px;
+                        padding: 18px 20px;
+                        border-radius: 20px;
+                        background: rgba(212, 175, 55, 0.08);
+                        border: 1px solid var(--border-gold);
+                        backdrop-filter: blur(10px);
+                    ">
+                        <strong style="display: block; font-size: 22px; margin-bottom: 6px; color: var(--gold); font-weight: 700;">4.9/5</strong>
+                        <span style="font-size: 13px; color: var(--text-muted);">Отзывы гостей</span>
+                    </div>
+                    <div style="
+                        min-width: 160px;
+                        padding: 18px 20px;
+                        border-radius: 20px;
+                        background: rgba(212, 175, 55, 0.08);
+                        border: 1px solid var(--border-gold);
+                        backdrop-filter: blur(10px);
+                    ">
+                        <strong style="display: block; font-size: 22px; margin-bottom: 6px; color: var(--gold); font-weight: 700;">50+</strong>
+                        <span style="font-size: 13px; color: var(--text-muted);">Видов вина</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="
+                background: rgba(18, 18, 18, 0.9);
+                border: 1px solid var(--border-gold);
+                border-radius: 36px;
+                padding: 24px;
+                backdrop-filter: blur(20px);
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+            ">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1920&auto=format&fit=crop"
+                     alt="Авторское блюдо"
+                     style="width: 100%; height: 480px; object-fit: cover; border-radius: 28px;">
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 16px;
+                    margin-top: 20px;
+                    align-items: center;
+                    flex-wrap: wrap;
+                ">
+                    <span style="font-size: 15px; color: var(--text-secondary);">Фирменная утка с ягодным соусом</span>
+                    <a href="{% url 'menu' %}" class="btn">Выбрать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Почему выбирают нас</h2>
+            <p>Мы создали пространство, где каждая деталь работает для вашего удовольствия</p>
+        </div>
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 36px;
+            margin-top: 20px;
+        ">
+            <div style="
+                background: var(--bg-card);
+                border-radius: 36px;
+                padding: 40px 32px;
+                transition: all 0.4s;
+                box-shadow: var(--shadow-soft);
+                border: 1px solid var(--border);
+            ">
+                <div style="
+                    width: 72px;
+                    height: 72px;
+                    background: rgba(212, 175, 55, 0.1);
+                    border-radius: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 28px;
+                    color: var(--gold);
+                    border: 1px solid var(--border-gold);
+                ">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L15 8H22L16 12L19 18L12 14L5 18L8 12L2 8H9L12 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.2"/>
+                    </svg>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--text-primary); margin-bottom: 16px;">Авторская кухня</h3>
+                <p style="color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; font-size: 15px;">Наш шеф-повар создаёт уникальные блюда, соединяя классические техники и современные тренды высокой кухни.</p>
+                <a href="{% url 'menu' %}" style="font-weight: 600; font-size: 13px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">Меню →</a>
+            </div>
+
+            <div style="
+                background: var(--bg-card);
+                border-radius: 36px;
+                padding: 40px 32px;
+                transition: all 0.4s;
+                box-shadow: var(--shadow-soft);
+                border: 1px solid var(--border);
+            ">
+                <div style="
+                    width: 72px;
+                    height: 72px;
+                    background: rgba(212, 175, 55, 0.1);
+                    border-radius: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 28px;
+                    color: var(--gold);
+                    border: 1px solid var(--border-gold);
+                ">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M8 4L16 4L14 12L18 18L12 14L6 18L10 12L8 4Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--text-primary); margin-bottom: 16px;">Изысканное вино</h3>
+                <p style="color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; font-size: 15px;">Наш винный список включает более 50 позиций от лучших виноделен мира. Профессиональный сомелье поможет подобрать идеальное вино.</p>
+                <a href="{% url 'wine' %}" style="font-weight: 600; font-size: 13px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">Винная карта →</a>
+            </div>
+
+            <div style="
+                background: var(--bg-card);
+                border-radius: 36px;
+                padding: 40px 32px;
+                transition: all 0.4s;
+                box-shadow: var(--shadow-soft);
+                border: 1px solid var(--border);
+            ">
+                <div style="
+                    width: 72px;
+                    height: 72px;
+                    background: rgba(212, 175, 55, 0.1);
+                    border-radius: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 28px;
+                    color: var(--gold);
+                    border: 1px solid var(--border-gold);
+                ">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C8.13 2 5 5.13 5 9C5 13.17 9 20 12 22C15 20 19 13.17 19 9C19 5.13 15.87 2 12 2Z" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.2"/>
+                    </svg>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--text-primary); margin-bottom: 16px;">Уютная локация</h3>
+                <p style="color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; font-size: 15px;">В самом сердце города, но за шумными улицами. У нас можно работать, встречаться с друзьями или просто наслаждаться тишиной.</p>
+                <a href="{% url 'contacts' %}" style="font-weight: 600; font-size: 13px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">Найти нас →</a>
+            </div>
+
+            <div style="
+                background: var(--bg-card);
+                border-radius: 36px;
+                padding: 40px 32px;
+                transition: all 0.4s;
+                box-shadow: var(--shadow-soft);
+                border: 1px solid var(--border);
+            ">
+                <div style="
+                    width: 72px;
+                    height: 72px;
+                    background: rgba(212, 175, 55, 0.1);
+                    border-radius: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 28px;
+                    color: var(--gold);
+                    border: 1px solid var(--border-gold);
+                ">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--text-primary); margin-bottom: 16px;">Вечерние концерты</h3>
+                <p style="color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; font-size: 15px;">По пятницам и субботам — живая музыка. Бокал вина, свечи и лучший джаз в городе создают особенную атмосферу.</p>
+                <a href="{% url 'about' %}" style="font-weight: 600; font-size: 13px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">Афиша →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background: var(--bg-card);">
+    <div class="container">
+        <div class="section-title">
+            <h2>Отзывы гостей</h2>
+            <p>Что говорят наши посетители</p>
+        </div>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <div style="flex: 1 1 calc(33.333% - 24px); background: var(--bg-deep); padding: 32px 30px; border-radius: 28px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+                <div style="color: var(--gold); margin-bottom: 16px; font-size: 20px; letter-spacing: 3px;">★★★★★</div>
+                <p style="color: var(--text-muted); margin: 0 0 18px; line-height: 1.7; font-size: 15px;">Отличная кухня и очень приятная атмосфера. Часто захожу для деловых встреч.</p>
+                <h4 style="margin: 0; font-size: 18px; color: var(--text-primary); font-weight: 600;">Анна</h4>
+            </div>
+            <div style="flex: 1 1 calc(33.333% - 24px); background: var(--bg-deep); padding: 32px 30px; border-radius: 28px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+                <div style="color: var(--gold); margin-bottom: 16px; font-size: 20px; letter-spacing: 3px;">★★★★★</div>
+                <p style="color: var(--text-muted); margin: 0 0 18px; line-height: 1.7; font-size: 15px;">Вкусные блюда, всё свежее и красиво подано. Рекомендую утку с ягодным соусом.</p>
+                <h4 style="margin: 0; font-size: 18px; color: var(--text-primary); font-weight: 600;">Мария</h4>
+            </div>
+            <div style="flex: 1 1 calc(33.333% - 24px); background: var(--bg-deep); padding: 32px 30px; border-radius: 28px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+                <div style="color: var(--gold); margin-bottom: 16px; font-size: 20px; letter-spacing: 3px;">★★★★☆</div>
+                <p style="color: var(--text-muted); margin: 0 0 18px; line-height: 1.7; font-size: 15px;">Хорошее место для встреч. Персонал вежливый, всё быстро, вино отличное.</p>
+                <h4 style="margin: 0; font-size: 18px; color: var(--text-primary); font-weight: 600;">Игорь</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Контакты</h2>
+            <p>Приходите к нам или оставьте сообщение</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 50px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; align-items: start;">
+                <div>
+                    <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 15px;"><strong style="color: var(--gold);">Адрес:</strong> ул. CityPark Avenue, 25</p>
+                    <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 15px;"><strong style="color: var(--gold);">Телефон:</strong> +7 (999) 123-45-67</p>
+                    <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 15px;"><strong style="color: var(--gold);">Время работы:</strong> Пн–Вс 12:00–24:00</p>
+                    <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 15px;"><strong style="color: var(--gold);">Email:</strong> info@citypark.ru</p>
+                </div>
+                <form style="display: grid; gap: 16px;">
+                    <input type="text" placeholder="Ваше имя" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px;">
+                    <input type="email" placeholder="Ваш email" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px;">
+                    <textarea placeholder="Ваше сообщение" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px; min-height: 140px; resize: vertical;"></textarea>
+                    <button class="btn" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

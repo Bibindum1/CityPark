@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты • CityPark{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Контакты</h2>
+            <p>Приходите к нам или оставьте сообщение</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+            <div style="background: var(--bg-card); padding: 50px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); margin-bottom: 30px; font-weight: 700;">
+                    Информация
+                </h3>
+                <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 16px;">
+                    <strong style="color: var(--gold);">Адрес:</strong><br>
+                    ул. CityPark Avenue, 25<br>
+                    Москва, Россия
+                </p>
+                <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 16px;">
+                    <strong style="color: var(--gold);">Телефон:</strong><br>
+                    +7 (999) 123-45-67
+                </p>
+                <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 16px;">
+                    <strong style="color: var(--gold);">Email:</strong><br>
+                    info@citypark.ru<br>
+                    booking@citypark.ru
+                </p>
+                <p style="margin-bottom: 30px; color: var(--text-secondary); font-size: 16px;">
+                    <strong style="color: var(--gold);">Время работы:</strong><br>
+                    Пн–Вс 12:00–24:00<br>
+                    Биал. кухня: 23:00–24:00
+                </p>
+                <div style="margin-top: 30px;">
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text-primary); margin-bottom: 16px; font-weight: 600;">Социальные сети</h4>
+                    <div style="display: flex; gap: 16px;">
+                        <a href="#" style="width: 48px; height: 48px; background: var(--bg-deep); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); border: 1px solid var(--border-gold); transition: all 0.3s;">
+                            📷
+                        </a>
+                        <a href="#" style="width: 48px; height: 48px; background: var(--bg-deep); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); border: 1px solid var(--border-gold); transition: all 0.3s;">
+                            💬
+                        </a>
+                        <a href="#" style="width: 48px; height: 48px; background: var(--bg-deep); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); border: 1px solid var(--border-gold); transition: all 0.3s;">
+                            🎵
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div style="background: var(--bg-card); padding: 50px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); margin-bottom: 30px;">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); margin-bottom: 30px; font-weight: 700;">
+                        Оставить сообщение
+                    </h3>
+                    <form style="display: grid; gap: 20px;">
+                        <input type="text" placeholder="Ваше имя" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px;">
+                        <input type="email" placeholder="Ваш email" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px;">
+                        <input type="tel" placeholder="Телефон" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px;">
+                        <textarea placeholder="Ваше сообщение" style="width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; font: inherit; background: var(--bg-deep); color: var(--text-primary); font-size: 14px; min-height: 140px; resize: vertical;"></textarea>
+                        <button class="btn" type="submit">Отправить</button>
+                    </form>
+                </div>
+
+                <div style="background: var(--bg-card); padding: 40px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border);">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); margin-bottom: 20px; font-weight: 700;">
+                        Как добраться
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 15px;">
+                        • Метро: CityPark (5 минут пешком)
+                    </p>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 15px;">
+                        • Авто: Парковка перед рестораном (бесплатно)
+                    </p>
+                    <p style="color: var(--text-secondary); margin-bottom: 0; font-size: 15px;">
+                        • Такси: Укажите «ул. CityPark Avenue, 25»
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; border-radius: 36px; overflow: hidden; box-shadow: var(--shadow-gold);">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f2b4d7?q=80&w=1920&auto=format&fit=crop"
+                 alt="Карта расположения"
+                 style="width: 100%; height: 480px; object-fit: cover;">
+        </div>
+    </div>
+</section>
+{% endblock %}
