@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from catalog.models import Dish, Category
+from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib import messages
 
+from catalog.models import Dish, Category
 from restaurant.models import Booking
 
 
@@ -38,36 +39,48 @@ def menu_view(request):
 
 
 def wine_view(request):
-    dishes = Dish.objects.filter(category__slug="wine")
+    wines = Dish.objects.filter(category__slug="wine")
 
     return render(request, 'wine.html', {
-        'wines': dishes
+        'wines': wines
     })
 
 
 def booking_view(request):
-    # ⚠️ сейчас заглушка — но безопасная
     if request.method == "POST":
-        # тут пока нет модели бронирования в views → просто защита
-        pass
+        full_name = request.POST.get("full_name")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        booking_date = request.POST.get("booking_date")
+        booking_time = request.POST.get("booking_time")
+        guests = request.POST.get("guests", 1)
 
-    return render(request, 'booking.html')
+        exists = Booking.objects.filter(
+            booking_date=booking_date,
+            booking_time=booking_time
+        ).exists()
+
+        if exists:
+            messages.error(request, "Это время уже занято")
+        else:
+            Booking.objects.create(
+                full_name=full_name,
+                phone=phone,
+                email=email,
+                booking_date=booking_date,
+                booking_time=booking_time,
+                guests=guests
+            )
+            messages.success(request, "Бронирование создано")
+
+        return redirect("booking")
+
+    return render(request, "booking.html")
 
 
 def about_view(request):
-    return render(request, 'about.html')
+    return render(request, "about.html")
 
 
 def contacts_view(request):
-    return render(request, 'contacts.html')
-
-from django.core.exceptions import ValidationError
-def clean(self):
-    exists = Booking.objects.filter(
-        table=self.table,
-        date=self.date,
-        time=self.time
-    ).exclude(pk=self.pk).exists()
-
-    if exists:
-        raise ValidationError("Этот стол уже занят на это время")
+    return render(request, "contacts.html")

@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError, transaction
 from django.utils.text import slugify
 import uuid
 
@@ -26,12 +26,11 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            generated = slugify(self.name)
+            base = slugify(self.name)
 
-            if not generated:
-                generated = f"dish-{uuid.uuid4().hex[:8]}"
+            if not base:
+                base = f"dish-{uuid.uuid4().hex[:8]}"
 
-            base = generated
             slug = base
             counter = 1
 
@@ -41,7 +40,14 @@ class Category(models.Model):
 
             self.slug = slug
 
-        super().save(*args, **kwargs)
+        try:
+            with transaction.atomic():
+                super().save(*args, **kwargs)
+
+        except IntegrityError:
+            # защита от race condition
+            self.slug = f"{self.slug}-{uuid.uuid4().hex[:4]}"
+            super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -82,21 +88,26 @@ class Dish(models.Model):
         if not self.slug:
             base = slugify(self.name)
 
-            # если slug пустой
             if not base:
                 base = f"dish-{uuid.uuid4().hex[:8]}"
 
             slug = base
             counter = 1
 
-            # защита от дублей
             while Dish.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base}-{counter}"
                 counter += 1
 
             self.slug = slug
 
-        super().save(*args, **kwargs)
+        try:
+            with transaction.atomic():
+                super().save(*args, **kwargs)
+
+        except IntegrityError:
+            # защита от race condition
+            self.slug = f"{self.slug}-{uuid.uuid4().hex[:4]}"
+            super().save(*args, **kwargs)
 
     @property
     def total_time(self):
@@ -107,8 +118,6 @@ class Dish(models.Model):
 
 
 class Order(models.Model):
-    
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def update_total(self):
         self.total = sum(
