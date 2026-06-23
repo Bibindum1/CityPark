@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class RestaurantInfo(models.Model):
@@ -170,3 +171,52 @@ class Review(models.Model):
 
     def __str__(self):
         return self.author
+
+class Booking(models.Model):
+    STATUS_NEW = "new"
+    STATUS_CONFIRMED = "confirmed"
+    STATUS_CANCELLED = "cancelled"
+
+    STATUS_CHOICES = (
+        (STATUS_NEW, "Новая"),
+        (STATUS_CONFIRMED, "Подтверждена"),
+        (STATUS_CANCELLED, "Отменена"),
+    )
+
+    full_name = models.CharField("Полное имя", max_length=100)
+    phone = models.CharField("Телефон", max_length=20)
+    email = models.EmailField("Email", blank=True, null=True)
+
+    booking_date = models.DateField("Дата брони")
+    booking_time = models.TimeField("Время брони")
+
+    guests = models.PositiveSmallIntegerField("Гостей", default=1)
+    status = models.CharField(
+        "Статус",
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_NEW,
+    )
+
+    comment = models.TextField("Комментарий", blank=True, null=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+        unique_together = ("booking_date", "booking_time")
+        verbose_name = "Бронирование"
+        verbose_name_plural = "Бронирования"
+
+    def __str__(self):
+        return f"{self.full_name} — {self.booking_date} {self.booking_time}"
+
+
+    def clean(self):
+        exists = Booking.objects.filter(
+            table=self.table,
+            date=self.date,
+            time=self.time
+        ).exclude(pk=self.pk).exists()
+
+        if exists:
+            raise ValidationError("Этот стол уже занят на это время")

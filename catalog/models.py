@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+import uuid
 
 
 class Category(models.Model):
@@ -17,6 +18,7 @@ class Category(models.Model):
         verbose_name="Описание"
     )
 
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
@@ -24,12 +26,17 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.name)
-            slug = base_slug
+            generated = slugify(self.name)
+
+            if not generated:
+                generated = f"dish-{uuid.uuid4().hex[:8]}"
+
+            base = generated
+            slug = base
             counter = 1
 
-            while Category.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
+            while Dish.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base}-{counter}"
                 counter += 1
 
             self.slug = slug
@@ -41,96 +48,53 @@ class Category(models.Model):
 
 
 class Dish(models.Model):
-    name = models.CharField(
-        max_length=200,
-        verbose_name="Название"
-    )
-
-    slug = models.SlugField(
-        unique=True,
-        blank=True
-    )
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
 
     category = models.ForeignKey(
-        Category,
+        "Category",
         on_delete=models.CASCADE,
-        related_name="dishes",
-        verbose_name="Категория"
+        related_name="dishes"
     )
 
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="Описание"
-    )
+    description = models.TextField(blank=True, null=True)
+    ingredients = models.TextField(blank=True, null=True)
 
-    ingredients = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="Состав"
-    )
+    image = models.ImageField(upload_to="dishes/", blank=True, null=True)
 
-    image = models.ImageField(
-        upload_to="dishes/",
-        blank=True,
-        null=True,
-        verbose_name="Изображение"
-    )
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Цена"
-    )
+    weight = models.PositiveIntegerField(default=100)
+    calories = models.PositiveIntegerField(default=0)
 
-    weight = models.PositiveIntegerField(
-        default=100,
-        verbose_name="Вес (г)"
-    )
+    prep_time = models.PositiveIntegerField(default=5)
+    cooking_time = models.PositiveIntegerField(default=15)
 
-    calories = models.PositiveIntegerField(
-        default=0,
-        verbose_name="Калорийность"
-    )
+    is_available = models.BooleanField(default=True)
 
-    prep_time = models.PositiveIntegerField(
-        default=5,
-        verbose_name="Подготовка (мин)"
-    )
-
-    cooking_time = models.PositiveIntegerField(
-        default=15,
-        verbose_name="Приготовление (мин)"
-    )
-
-    is_available = models.BooleanField(
-        default=True,
-        verbose_name="Доступно"
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
-
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Блюдо"
-        verbose_name_plural = "Блюда"
         ordering = ["name"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            generated = slugify(self.name)
+            base = slugify(self.name)
 
-            if not generated:
-                raise ValueError("Slug не может быть пустым. Проверь name.")
+            # если slug пустой
+            if not base:
+                base = f"dish-{uuid.uuid4().hex[:8]}"
 
+            slug = base
+            counter = 1
 
+            # защита от дублей
+            while Dish.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base}-{counter}"
+                counter += 1
 
-            self.slug = generated
+            self.slug = slug
 
         super().save(*args, **kwargs)
 
@@ -143,6 +107,15 @@ class Dish(models.Model):
 
 
 class Order(models.Model):
+    
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def update_total(self):
+        self.total = sum(
+            item.price * item.quantity
+            for item in self.items.all()
+        )
+        self.save()
 
     STATUS_CHOICES = [
         ("new", "Новый"),

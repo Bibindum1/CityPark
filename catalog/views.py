@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Category, Dish, Order, OrderItem
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 
 def basket(request):
@@ -130,3 +132,6 @@ def profile(request):
         }
     )
 
+@receiver([post_save, post_delete], sender=OrderItem)
+def update_order_total(sender, instance, **kwargs):
+    instance.order.update_total()

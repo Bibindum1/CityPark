@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 from faker import Faker
 
+from CityPark import settings
 from catalog.models import Category, Dish, Order, OrderItem
 from restaurant.models import RestaurantInfo, Booking, Table, Review
 
@@ -29,7 +30,8 @@ class Command(BaseCommand):
         Table.objects.all().delete()
         Review.objects.all().delete()
         RestaurantInfo.objects.all().delete()
-        User.objects.exclude(is_superuser=True).delete()
+        if settings.DEBUG:
+            User.objects.exclude(is_superuser=True).delete()
 
         self.stdout.write("База очищена")
 
