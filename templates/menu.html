@@ -4,244 +4,293 @@
 
 {% block content %}
 
-<section class="menu-hero">
+    <style>
+        /* ================= PREMIUM MENU GRID ================= */
 
-    <div class="container">
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
 
-        <div class="menu-hero-content">
+        /* ================= CARD ================= */
 
-            <span class="menu-label">
-                Авторская кухня
-            </span>
+        .menu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.35s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
 
-            <h1 class="menu-main-title">
-                Меню ресторана
-            </h1>
+        .menu-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-gold);
+        }
 
-            <p class="menu-main-text">
-                Уникальные блюда, приготовленные из свежих ингредиентов.
-                Откройте для себя вкусы, созданные нашим шеф-поваром.
-            </p>
+        .menu-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            filter: saturate(1.05) contrast(1.05);
+        }
 
-        </div>
+        /* ================= CONTENT ================= */
 
-    </div>
+        .menu-content {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
 
-</section>
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
 
-<section class="menu-section">
+        .menu-title {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
 
-    <div class="container">
+        .menu-price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 20px;
+            white-space: nowrap;
+        }
 
-        <div class="menu-toolbar">
+        .menu-description {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 14px 0 16px;
+        }
 
-            <form method="get" class="menu-search-form">
+        /* ================= TAG ================= */
 
-                <input
-                    type="text"
-                    name="q"
-                    value="{{ query|default:'' }}"
-                    placeholder="Поиск блюда..."
-                    class="menu-search-input"
-                >
+        .menu-category {
+            display: inline-flex;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gold);
+            background: var(--gold-soft);
+            border: 1px solid var(--border-gold);
+            width: fit-content;
+            margin-bottom: 16px;
+        }
 
-                <select name="sort" class="menu-sort">
+        /* ================= BUTTONS ================= */
 
-                    <option value="">
-                        Сортировка
-                    </option>
+        .menu-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+        }
 
-                    <option
-                        value="name"
-                        {% if current_sort == "name" %}selected{% endif %}
-                    >
-                        По названию
-                    </option>
+        .small-btn {
+            flex: 1;
+            padding: 11px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
 
-                    <option
-                        value="price_asc"
-                        {% if current_sort == "price_asc" %}selected{% endif %}
-                    >
-                        Цена ↑
-                    </option>
+        .small-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
 
-                    <option
-                        value="price_desc"
-                        {% if current_sort == "price_desc" %}selected{% endif %}
-                    >
-                        Цена ↓
-                    </option>
+        .add-cart {
+            background: var(--gold);
+            color: #111;
+            border: none;
+        }
 
-                </select>
+        .add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+        }
 
-                <button type="submit" class="btn btn-primary">
-                    Найти
-                </button>
+        .add-fav.active {
+            background: var(--gold-soft);
+            border-color: var(--border-gold);
+            color: var(--gold);
+        }
 
-            </form>
+        /* ================= FILTERS ================= */
 
-        </div>
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 42px;
+        }
 
-        <div class="category-filter">
+        .filter-btn {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
 
-            <button
-                type="button"
-                class="category-btn active"
-                data-filter="all"
-            >
-                Все блюда
-            </button>
+        .filter-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
 
-            {% for cat in categories %}
+        .filter-btn.active {
+            background: var(--gold);
+            color: #111;
+            border-color: var(--gold);
+        }
 
-                <button
-                    type="button"
-                    class="category-btn"
-                    data-filter="{{ cat.name }}"
-                >
-                    {{ cat.name }}
-                </button>
+        /* ================= EMPTY STATE ================= */
 
-            {% endfor %}
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
 
-        </div>
+        .empty-state h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
 
-        <div class="menu-grid">
+        /* ================= MOBILE ================= */
 
-            {% for dish in dishes %}
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 
-                <article
-                    class="dish-card card reveal"
-                    data-category="{{ dish.category.name }}"
-                    data-id="{{ dish.id }}"
-                    data-name="{{ dish.name }}"
-                    data-price="{{ dish.price }}"
-                >
+    <section class="section">
+        <div class="container">
 
-                    <div class="dish-image-wrapper">
+            <div class="section-title">
+                <h2>Меню ресторана</h2>
+                <p>Авторская кухня премиум уровня</p>
+            </div>
+
+            <!-- FILTERS -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="завтраки">Завтраки</button>
+                <button class="filter-btn" data-filter="салаты">Салаты</button>
+                <button class="filter-btn" data-filter="мясо">Мясо</button>
+                <button class="filter-btn" data-filter="рыба">Рыба</button>
+                <button class="filter-btn" data-filter="десерты">Десерты</button>
+                <button class="filter-btn" data-filter="вино">Вино</button>
+            </div>
+
+            <!-- GRID -->
+            <div class="menu-grid">
+
+                {% for dish in dishes %}
+                    <article class="menu-card"
+                             data-category="{{ dish.category.name|lower }}"
+                             data-id="{{ dish.id }}"
+                             data-name="{{ dish.name }}"
+                             data-price="{{ dish.price }}">
 
                         {% if dish.image %}
-
-                            <img
-                                src="{{ dish.image.url }}"
-                                alt="{{ dish.name }}"
-                                class="dish-image"
-                            >
-
+                            <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
                         {% else %}
-
-                            <img
-                                src="https://via.placeholder.com/800x600"
-                                alt="{{ dish.name }}"
-                                class="dish-image"
-                            >
-
+                            <img src="https://via.placeholder.com/600x400?text=No+Image" alt="{{ dish.name }}">
                         {% endif %}
 
-                        <button
-                            type="button"
-                            class="favorite-btn"
-                        >
-                            ❤
-                        </button>
+                        <div class="menu-content">
 
-                    </div>
+                            <div class="menu-header">
+                                <div class="menu-title">{{ dish.name }}</div>
+                                <div class="menu-price">{{ dish.price }} ₽</div>
+                            </div>
 
-                    <div class="dish-content">
+                            <div class="menu-description">
+                                {{ dish.description }}
+                            </div>
 
-                        <span class="dish-category">
-                            {{ dish.category.name }}
-                        </span>
+                            <div class="menu-category">
+                                {{ dish.category.name }}
+                            </div>
 
-                        <div class="dish-top">
-
-                            <h3 class="dish-title">
-                                {{ dish.name }}
-                            </h3>
-
-                            <span class="dish-price">
-                                {{ dish.price }} ₽
-                            </span>
+                            <div class="menu-actions">
+                                <button type="button" class="small-btn add-cart">В корзину</button>
+                                <button type="button" class="small-btn add-fav">❤</button>
+                            </div>
 
                         </div>
+                    </article>
+                    {% empty %}
 
-                        <p class="dish-description">
-                            {{ dish.description }}
-                        </p>
-
-                        <div class="dish-footer">
-
-                            <button
-                                type="button"
-                                class="btn btn-primary add-cart-btn"
-                            >
-                                В корзину
-                            </button>
-
-                            <button
-                                type="button"
-                                class="btn btn-secondary details-btn"
-                            >
-                                Подробнее
-                            </button>
-
-                        </div>
-
+                    <div class="empty-state">
+                        <h3>Меню пока пустое</h3>
+                        <p>Администратор ещё не добавил блюда</p>
                     </div>
 
-                </article>
-
-            {% empty %}
-
-                <div class="menu-empty">
-
-                    <h3>
-                        Блюда не найдены
-                    </h3>
-
-                    <p>
-                        Попробуйте изменить параметры поиска.
-                    </p>
-
-                </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="menu-banner">
-
-    <div class="container">
-
-        <div class="menu-banner-card card">
-
-            <div>
-
-                <h2>
-                    Забронируйте столик заранее
-                </h2>
-
-                <p>
-                    Лучшие места и персональное обслуживание ждут вас.
-                </p>
+                {% endfor %}
 
             </div>
 
-            <a
-                href="{% url 'booking' %}"
-                class="btn btn-primary"
-            >
-                Забронировать
-            </a>
-
         </div>
+    </section>
 
-    </div>
+{% endblock %}
 
-</section>
+{% block scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
+            const buttons = document.querySelectorAll(".filter-btn");
+            const cards = document.querySelectorAll(".menu-card");
+
+            buttons.forEach(btn => {
+                btn.addEventListener("click", () => {
+
+                    buttons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    const filter = btn.dataset.filter.toLowerCase();
+
+                    cards.forEach(card => {
+                        const cat = (card.dataset.category || "").toLowerCase();
+
+                        if (filter === "all" || cat === filter) {
+                            card.style.display = "flex";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+
+                });
+            });
+
+        });
+    </script>
 {% endblock %}

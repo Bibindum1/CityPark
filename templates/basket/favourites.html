@@ -1,146 +1,146 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}Избранное • CityPark{% endblock %}
 
 {% block content %}
 
 <style>
-.favorites-section {
+.fav-page {
     width: min(1300px, 94%);
     margin: 0 auto;
     padding: 80px 0;
 }
 
-.favorites-title {
+.fav-title {
     text-align: center;
     font-family: "Playfair Display", serif;
-    font-size: clamp(36px, 5vw, 56px);
+    font-size: clamp(40px, 5vw, 56px);
     color: var(--gold);
-    margin-bottom: 15px;
-}
-
-.favorites-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 17px;
-    margin-bottom: 50px;
-}
-
-.favorites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.favorite-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-gold);
-    border-radius: 24px;
-    overflow: hidden;
-    transition: 0.35s;
-    box-shadow: var(--shadow-soft);
-}
-
-.favorite-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-gold);
-}
-
-.favorite-card img {
-    width: 100%;
-    height: 230px;
-    object-fit: cover;
-}
-
-.favorite-content {
-    padding: 24px;
-}
-
-.favorite-content h3 {
-    color: var(--text-primary);
-    font-size: 24px;
     margin-bottom: 10px;
 }
 
-.favorite-content p {
-    color: var(--text-secondary);
-    margin-bottom: 20px;
+.fav-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 60px;
 }
 
-.favorite-bottom {
+.fav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 26px;
+}
+
+/* CARD */
+.fav-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    overflow: hidden;
+    transition: 0.35s ease;
+}
+
+.fav-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-gold);
+    border-color: var(--border-gold);
+}
+
+.fav-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* CONTENT */
+.fav-content {
+    padding: 22px;
+}
+
+.fav-name {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.fav-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.fav-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
-.favorite-price {
+.fav-price {
     color: var(--gold);
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
 }
 
-.favorite-actions {
+/* BUTTONS */
+.btn-row {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.btn-small {
+.btn {
     flex: 1;
-    padding: 13px 18px;
+    padding: 12px 14px;
     border-radius: 999px;
-    border: none;
-    cursor: pointer;
     font-weight: 600;
-    font-size: 14px;
-    transition: .3s;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    border: none;
 }
 
 .btn-cart {
-    background: var(--gradient-gold);
+    background: linear-gradient(135deg, #d4af37, #f0e6b8, #b8952a);
     color: #0a0a0a;
     box-shadow: var(--shadow-gold);
 }
 
-.btn-cart:hover {
+.btn-remove {
+    background: transparent;
+    border: 1px solid rgba(255,80,80,0.25);
+    color: #ff7b7b;
+}
+
+.btn:hover {
     transform: translateY(-2px);
 }
 
-.btn-remove {
-    background: transparent;
-    color: #ff7b7b;
-    border: 1px solid rgba(255, 80, 80, .3);
-}
-
-.btn-remove:hover {
-    background: rgba(255, 80, 80, .1);
-}
-
-.empty-favorites {
-    background: var(--bg-card);
-    border: 1px solid var(--border-gold);
-    border-radius: 24px;
-    padding: 70px 20px;
+/* EMPTY STATE */
+.fav-empty {
     text-align: center;
-    color: var(--text-secondary);
+    padding: 80px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 36px;
+    color: var(--text-muted);
     box-shadow: var(--shadow-soft);
 }
 
-.empty-favorites h2 {
+.fav-empty h2 {
     font-family: "Playfair Display", serif;
-    color: var(--gold);
-    margin-bottom: 15px;
     font-size: 34px;
+    color: var(--gold);
+    margin-bottom: 10px;
 }
 
-.center-button {
+/* CTA */
+.fav-cta {
     text-align: center;
-    margin-top: 45px;
+    margin-top: 50px;
 }
 
-.center-button a {
+.fav-cta a {
     display: inline-block;
     padding: 16px 32px;
     border-radius: 999px;
@@ -148,121 +148,87 @@
     color: #0a0a0a;
     font-weight: 600;
     box-shadow: var(--shadow-gold);
-    transition: .3s;
+    transition: 0.25s ease;
 }
 
-.center-button a:hover {
+.fav-cta a:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 50px rgba(212,175,55,.25);
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
-
-    .favorites-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .favorite-actions {
+    .btn-row {
         flex-direction: column;
-    }
-
-    .btn-small {
-        width: 100%;
     }
 }
 </style>
 
-<section class="favorites-section">
+<section class="fav-page">
 
-    <h1 class="favorites-title">
-        Избранное
-    </h1>
+    <h1 class="fav-title">Избранное</h1>
+    <p class="fav-subtitle">Ваши сохранённые блюда и вина</p>
 
-    <p class="favorites-subtitle">
-        Ваши любимые блюда
-    </p>
+    <div id="favorite-items" class="fav-grid"></div>
 
-    <div id="favorite-items" class="favorites-grid"></div>
-
-    <div id="empty-fav-message" class="empty-favorites">
-        <h2>Пока ничего нет</h2>
-        <p>Добавьте понравившиеся блюда в избранное.</p>
+    <div id="empty-fav" class="fav-empty" style="display:none;">
+        <h2>Пока пусто 🤍</h2>
+        <p>Добавляйте блюда в избранное, чтобы не потерять их</p>
     </div>
 
-    <div class="center-button">
-        <a href="{% url 'index' %}#menu">
-            Посмотреть меню
-        </a>
+    <div class="fav-cta">
+        <a href="{% url 'index' %}#menu">Перейти в меню</a>
     </div>
 
 </section>
 
-{% endblock %}
-
-{% block scripts %}
-
 <script>
 function loadFavorites() {
 
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let fav = JSON.parse(localStorage.getItem('favorites') || '[]');
 
     const container = document.getElementById('favorite-items');
-    const emptyMessage = document.getElementById('empty-fav-message');
+    const empty = document.getElementById('empty-fav');
 
-    if (favorites.length === 0) {
-
+    if (fav.length === 0) {
         container.innerHTML = '';
-        emptyMessage.style.display = 'block';
-
+        empty.style.display = 'block';
         return;
     }
 
-    emptyMessage.style.display = 'none';
-
+    empty.style.display = 'none';
     container.innerHTML = '';
 
-    for (let i = 0; i < favorites.length; i++) {
-
-        const item = favorites[i];
+    fav.forEach((item, i) => {
 
         const card = document.createElement('div');
 
         card.innerHTML = `
-            <div class="favorite-card">
+            <div class="fav-card">
 
-                <img src="${item.image || 'https://via.placeholder.com/300x200?text=Нет+фото'}"
-                     alt="${item.name}">
+                <img src="${item.image || 'https://via.placeholder.com/400'}">
 
-                <div class="favorite-content">
+                <div class="fav-content">
 
-                    <h3>${item.name}</h3>
+                    <div class="fav-name">${item.name}</div>
 
-                    <p>Вкусное блюдо от шеф-повара</p>
-
-                    <div class="favorite-bottom">
-
-                        <div class="favorite-price">
-                            ${item.price} ₽
-                        </div>
-
+                    <div class="fav-desc">
+                        Авторское блюдо от шефа
                     </div>
 
-                    <div class="favorite-actions">
+                    <div class="fav-bottom">
+                        <div class="fav-price">${item.price} ₽</div>
+                    </div>
 
-                        <button
-                            class="btn-small btn-cart"
-                            onclick="addToCartFromFav(${i})">
+                    <div class="btn-row">
 
+                        <button class="btn btn-cart"
+                            onclick="toCart(${i})">
                             В корзину
-
                         </button>
 
-                        <button
-                            class="btn-small btn-remove"
-                            onclick="removeFromFavorites(${i})">
-
-                            ✕ Удалить
-
+                        <button class="btn btn-remove"
+                            onclick="removeFav(${i})">
+                            Удалить
                         </button>
 
                     </div>
@@ -273,55 +239,38 @@ function loadFavorites() {
         `;
 
         container.appendChild(card);
-    }
+    });
 }
 
-function addToCartFromFav(index) {
+function toCart(i) {
 
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-    let item = favorites[index];
-
+    let fav = JSON.parse(localStorage.getItem('favorites') || '[]');
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
     cart.push({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: 1,
-        image: item.image
+        name: fav[i].name,
+        price: fav[i].price,
+        image: fav[i].image,
+        quantity: 1
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    alert("✅ " + item.name + " добавлен в корзину");
-
-    if (window.updateCounters) {
-        window.updateCounters();
-    }
+    alert("Добавлено в корзину");
 }
 
-function removeFromFavorites(index) {
+function removeFav(i) {
 
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let fav = JSON.parse(localStorage.getItem('favorites') || '[]');
 
-    let removed = favorites[index];
+    fav.splice(i, 1);
 
-    favorites.splice(index, 1);
-
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem('favorites', JSON.stringify(fav));
 
     loadFavorites();
-
-    if (window.updateCounters) {
-        window.updateCounters();
-    }
-
-    alert("💔 " + removed.name + " удален из избранного");
 }
 
 loadFavorites();
 </script>
 
 {% endblock %}
-

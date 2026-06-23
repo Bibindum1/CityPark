@@ -3,303 +3,223 @@
 {% block title %}Винная карта • CityPark{% endblock %}
 
 {% block content %}
+
 <section class="section">
-    <div class="container">
-        <div class="section-title">
-            <h2>Винная карта</h2>
-            <p>Более 50 позиций от лучших виноделен мира</p>
-        </div>
 
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 40px;">
-            <button class="filter-btn active" data-filter="all" style="
-                border: 1px solid var(--border);
-                background: var(--bg-card);
-                color: var(--text-secondary);
-                padding: 12px 24px;
-                border-radius: 999px;
-                cursor: pointer;
-                font: inherit;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.3s;
-            ">Все</button>
-            <button class="filter-btn" data-filter="красное" style="
-                border: 1px solid var(--border);
-                background: var(--bg-card);
-                color: var(--text-secondary);
-                padding: 12px 24px;
-                border-radius: 999px;
-                cursor: pointer;
-                font: inherit;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.3s;
-            ">Красное</button>
-            <button class="filter-btn" data-filter="белое" style="
-                border: 1px solid var(--border);
-                background: var(--bg-card);
-                color: var(--text-secondary);
-                padding: 12px 24px;
-                border-radius: 999px;
-                cursor: pointer;
-                font: inherit;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.3s;
-            ">Белое</button>
-            <button class="filter-btn" data-filter="розовое" style="
-                border: 1px solid var(--border);
-                background: var(--bg-card);
-                color: var(--text-secondary);
-                padding: 12px 24px;
-                border-radius: 999px;
-                cursor: pointer;
-                font: inherit;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.3s;
-            ">Розовое</button>
-            <button class="filter-btn" data-filter="игристое" style="
-                border: 1px solid var(--border);
-                background: var(--bg-card);
-                color: var(--text-secondary);
-                padding: 12px 24px;
-                border-radius: 999px;
-                cursor: pointer;
-                font: inherit;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.3s;
-            ">Игристое</button>
-        </div>
+<div class="container">
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
-            {% for wine in wines %}
-                <article class="wine-card"
-                    data-category="{{ wine.category.name|lower }}"
-                    data-id="{{ wine.id }}"
-                    data-name="{{ wine.name }}"
-                    data-price="{{ wine.price }}"
-                    style="
-                        background: var(--bg-card);
-                        border-radius: 28px;
-                        padding: 32px;
-                        transition: all 0.4s;
-                        border: 1px solid var(--border);
-                        position: relative;
-                    ">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
-                        <h3 style="font-size: 22px; font-weight: 600; color: var(--text-primary); margin: 0;">
-                            {{ wine.name }}
-                        </h3>
-                        <div style="color: var(--gold); font-weight: 700; font-size: 22px;">
-                            {{ wine.price }} ₽
-                        </div>
-                    </div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 14px; line-height: 1.6;">
-                        {{ wine.description }}
-                    </p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
-                        <div>
-                            <span style="color: var(--text-secondary); font-size: 13px;">Страна:</span>
-                            <span style="color: var(--text-primary); font-size: 14px; font-weight: 500;">Франция</span>
-                        </div>
-                        <div>
-                            <span style="color: var(--text-secondary); font-size: 13px;">Год:</span>
-                            <span style="color: var(--text-primary); font-size: 14px; font-weight: 500;">2019</span>
-                        </div>
-                        <div>
-                            <span style="color: var(--text-secondary); font-size: 13px;">Виноград:</span>
-                            <span style="color: var(--text-primary); font-size: 14px; font-weight: 500;">Пино Нуар</span>
-                        </div>
-                        <div>
-                            <span style="color: var(--text-secondary); font-size: 13px;">Тип:</span>
-                            <span style="color: var(--gold); font-size: 14px; font-weight: 500;">Красное</span>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="small-btn add-cart" style="
-                            border: none;
-                            cursor: pointer;
-                            padding: 12px 18px;
-                            border-radius: 999px;
-                            font: inherit;
-                            font-weight: 600;
-                            font-size: 13px;
-                            transition: all 0.3s;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 7px;
-                            min-width: 130px;
-                            justify-content: center;
-                            white-space: nowrap;
-                            background: var(--gold);
-                            color: #0a0a0a;
-                            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
-                        ">
-                            В корзину
-                        </button>
-                        <button class="small-btn add-fav" style="
-                            border: none;
-                            cursor: pointer;
-                            padding: 12px 18px;
-                            border-radius: 999px;
-                            font: inherit;
-                            font-weight: 600;
-                            font-size: 13px;
-                            transition: all 0.3s;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 7px;
-                            min-width: 130px;
-                            justify-content: center;
-                            white-space: nowrap;
-                            background: rgba(255, 255, 255, 0.06);
-                            color: var(--text-secondary);
-                            border: 1px solid var(--border);
-                        ">
-                            ❤ Избранное
-                        </button>
-                    </div>
-                </article>
-            {% empty %}
-                <div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: var(--text-muted);">
-                    <p style="font-size: 18px;">Винная карта пока пустая</p>
-                </div>
-            {% endfor %}
-        </div>
-
-        <div style="background: var(--bg-card); padding: 50px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); margin-top: 60px;">
-            <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); margin-bottom: 24px; font-weight: 700;">
-                Профессиональный сомелье
-            </h3>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 16px; line-height: 1.8;">
-                Наш соммейе Анна Петрова поможет подобрать идеальное вино к вашему блюду. 
-                Консультация бесплатно включена в обслуживание.
-            </p>
-            <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">
-                «Вино — это не просто напиток, это история земли, климата и рук винодела. 
-                Мы хотим, чтобы каждый гость почувствовал эту историю»
-            </p>
-        </div>
+    <div class="section-title">
+        <h2>Винная карта</h2>
+        <p>Подборка вин от ведущих виноделен мира</p>
     </div>
+
+    <!-- FILTERS -->
+    <div style="
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-bottom:50px;
+    ">
+
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="красное">Красное</button>
+        <button class="filter-btn" data-filter="белое">Белое</button>
+        <button class="filter-btn" data-filter="розовое">Розовое</button>
+        <button class="filter-btn" data-filter="игристое">Игристое</button>
+
+    </div>
+
+    <!-- GRID -->
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+        gap:26px;
+    ">
+
+        {% for wine in wines %}
+
+        <article class="wine-card"
+            data-category="{{ wine.category.name|lower }}"
+            data-id="{{ wine.id }}"
+            data-name="{{ wine.name }}"
+            data-price="{{ wine.price }}"
+
+            style="
+                background:var(--bg-card);
+                border:1px solid var(--border);
+                border-radius:28px;
+                padding:26px;
+                transition:0.35s ease;
+                position:relative;
+                overflow:hidden;
+            ">
+
+            <!-- subtle gold accent line -->
+            <div style="
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:2px;
+                background:linear-gradient(90deg, transparent, var(--gold), transparent);
+                opacity:0.6;
+            "></div>
+
+            <!-- HEADER -->
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:flex-start;
+                margin-bottom:16px;
+                gap:10px;
+            ">
+
+                <h3 style="
+                    font-family:'Playfair Display', serif;
+                    font-size:20px;
+                    color:var(--text-primary);
+                    line-height:1.2;
+                ">
+                    {{ wine.name }}
+                </h3>
+
+                <div style="
+                    color:var(--gold);
+                    font-weight:700;
+                    font-size:20px;
+                    white-space:nowrap;
+                ">
+                    {{ wine.price }} ₽
+                </div>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+            <p style="
+                color:var(--text-muted);
+                font-size:14px;
+                line-height:1.7;
+                margin-bottom:18px;
+            ">
+                {{ wine.description }}
+            </p>
+
+            <!-- INFO GRID -->
+            <div style="
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:10px;
+                margin-bottom:22px;
+                font-size:13px;
+            ">
+
+                <div>
+                    <span style="color:var(--text-muted);">Страна:</span>
+                    <span style="color:var(--text-primary);">Франция</span>
+                </div>
+
+                <div>
+                    <span style="color:var(--text-muted);">Год:</span>
+                    <span style="color:var(--text-primary);">2019</span>
+                </div>
+
+                <div>
+                    <span style="color:var(--text-muted);">Сорт:</span>
+                    <span style="color:var(--text-primary);">Пино Нуар</span>
+                </div>
+
+                <div>
+                    <span style="color:var(--text-muted);">Тип:</span>
+                    <span style="color:var(--gold); font-weight:600;">
+                        {{ wine.category.name }}
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- ACTIONS -->
+            <div style="display:flex; gap:10px;">
+
+                <button class="small-btn add-cart" style="
+                    flex:1;
+                    padding:12px 14px;
+                    border-radius:999px;
+                    border:none;
+                    background:var(--gold);
+                    color:#0a0a0a;
+                    font-weight:600;
+                    cursor:pointer;
+                    transition:0.25s;
+                ">
+                    В корзину
+                </button>
+
+                <button class="small-btn add-fav" style="
+                    flex:1;
+                    padding:12px 14px;
+                    border-radius:999px;
+                    border:1px solid var(--border);
+                    background:transparent;
+                    color:var(--text-secondary);
+                    font-weight:600;
+                    cursor:pointer;
+                    transition:0.25s;
+                ">
+                    ❤
+                </button>
+
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div style="
+            grid-column:1/-1;
+            text-align:center;
+            padding:80px 20px;
+            color:var(--text-muted);
+        ">
+            <div style="font-size:50px; margin-bottom:10px;">🍷</div>
+            <p style="font-size:18px;">Винная карта пока формируется</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- SOMMELIER BLOCK -->
+    <div style="
+        margin-top:70px;
+        background:var(--bg-card);
+        border:1px solid var(--border);
+        border-radius:36px;
+        padding:50px;
+        box-shadow:var(--shadow-soft);
+    ">
+
+        <h3 style="
+            font-family:'Playfair Display', serif;
+            font-size:28px;
+            color:var(--gold);
+            margin-bottom:18px;
+        ">
+            Сомелье ресторана
+        </h3>
+
+        <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:14px;">
+            Наш сомелье помогает подобрать идеальное вино к каждому блюду.
+        </p>
+
+        <p style="color:var(--text-muted); line-height:1.8; font-style:italic;">
+            «Вино — это язык, на котором говорит кухня»
+        </p>
+
+    </div>
+
+</div>
+
 </section>
-{% endblock %}
 
-{% block scripts %}
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const buttons = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".wine-card");
-
-    buttons.forEach(btn => {
-        btn.addEventListener("click", function () {
-            const filter = this.dataset.filter.toLowerCase().trim();
-
-            buttons.forEach(b => b.classList.remove("active"));
-            this.classList.add("active");
-
-            cards.forEach(card => {
-                const cat = (card.dataset.category || "").toLowerCase().trim();
-
-                if (filter === "all" || cat === filter) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
-    });
-
-    function showToast(msg) {
-        let el = document.createElement("div");
-        el.textContent = msg;
-        el.style.position = "fixed";
-        el.style.bottom = "20px";
-        el.style.left = "50%";
-        el.style.transform = "translateX(-50%)";
-        el.style.background = "var(--gold)";
-        el.style.color = "#0a0a0a";
-        el.style.padding = "14px 24px";
-        el.style.borderRadius = "999px";
-        el.style.zIndex = "9999";
-        el.style.fontWeight = "600";
-        el.style.boxShadow = "0 8px 30px rgba(212, 175, 55, 0.3)";
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 2000);
-    }
-
-    function updateAllButtons() {
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-        document.querySelectorAll('.add-cart').forEach(btn => {
-            let card = btn.closest('.wine-card');
-            let id = card.getAttribute('data-id');
-            let inCart = cart.some(item => item.id === id);
-            btn.textContent = inCart ? '✓ В корзине' : 'В корзину';
-        });
-
-        document.querySelectorAll('.add-fav').forEach(btn => {
-            let card = btn.closest('.wine-card');
-            let id = card.getAttribute('data-id');
-            let inFav = favorites.some(item => item.id === id);
-            btn.textContent = inFav ? '❤ В избранном' : '❤ Избранное';
-        });
-
-        document.getElementById('cartCount').innerText = cart.length;
-        document.getElementById('favCount').innerText = favorites.length;
-    }
-
-    function addToCart(id, name, price, img) {
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        let exists = cart.some(item => item.id === id);
-
-        if (!exists) {
-            cart.push({id, name, price, quantity: 1, image: img});
-            showToast("🛒 Добавлено: " + name);
-        } else {
-            cart = cart.filter(item => item.id !== id);
-            showToast("❌ Удалено из корзины");
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateAllButtons();
-    }
-
-    function toggleFavorites(id, name, price, img) {
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        let exists = favorites.some(item => item.id === id);
-
-        if (!exists) {
-            favorites.push({id, name, price, image: img});
-            showToast("❤️ Добавлено: " + name);
-        } else {
-            favorites = favorites.filter(item => item.id !== id);
-            showToast("💔 Удалено из избранного");
-        }
-
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        updateAllButtons();
-    }
-
-    document.querySelectorAll('.add-cart').forEach(btn => {
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            let card = this.closest('.wine-card');
-            addToCart(card.dataset.id, card.dataset.name, parseInt(card.dataset.price), '');
-        });
-    });
-
-    document.querySelectorAll('.add-fav').forEach(btn => {
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            let card = this.closest('.wine-card');
-            toggleFavorites(card.dataset.id, card.dataset.name, parseInt(card.dataset.price), '');
-        });
-    });
-
-    updateAllButtons();
-});
-</script>
 {% endblock %}

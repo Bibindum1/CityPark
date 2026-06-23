@@ -3,82 +3,208 @@
 {% block title %}О нас • CityPark{% endblock %}
 
 {% block content %}
+
 <section class="section">
+
     <div class="container">
+
         <div class="section-title">
             <h2>О ресторане CityPark</h2>
-            <p>История создания и концепция нашей кухни</p>
+            <p>История, философия и подход к высокой кухне</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px;">
+        <!-- HERO STORY -->
+        <div style="
+            display:grid;
+            grid-template-columns:1.1fr 0.9fr;
+            gap:70px;
+            align-items:center;
+            margin-bottom:90px;
+        ">
+
             <div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); margin-bottom: 24px; font-weight: 700;">
+
+                <h3 style="
+                    font-family:'Playfair Display', serif;
+                    font-size:40px;
+                    line-height:1.1;
+                    color:var(--gold);
+                    margin-bottom:24px;
+                    letter-spacing:-0.5px;
+                ">
                     Наша история
                 </h3>
-                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 16px; line-height: 1.8;">
-                    CityPark открылся в 2018 году с простой миссией — создать место, где качественная кухня встречается с искренним сервисом. 
-                    Наш шеф-повар Алексей Морозов принес в ресторан опыт работы в лучших ресторанах Европы и Азии.
+
+                <p style="color:var(--text-secondary); font-size:16px; line-height:1.8; margin-bottom:18px;">
+                    CityPark открылся в 2018 году как пространство, где гастрономия становится опытом.
+                    Мы стремились создать не просто ресторан, а атмосферу, в которой еда становится частью эмоции.
                 </p>
-                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 16px; line-height: 1.8;">
-                    Мы выбираем только свежие ингредиенты от локальных фермеров, обжариваем кофе каждые 5–7 дней и создаём блюда, 
-                    которые вдохновляют наших гостей возвращаться снова.
+
+                <p style="color:var(--text-secondary); font-size:16px; line-height:1.8; margin-bottom:18px;">
+                    Шеф-повар Алексей Морозов привнёс в проект опыт европейской и азиатской кухни,
+                    сформировав авторский стиль, основанный на чистом вкусе и уважении к продукту.
                 </p>
-                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">
-                    Сегодня CityPark — это не просто ресторан, а место для ярких встреч, деловых переговоров и особых моментов в жизни наших гостей.
+
+                <p style="color:var(--text-muted); font-size:15px; line-height:1.8;">
+                    Сегодня CityPark — это место встреч, событий и гастрономических впечатлений,
+                    куда возвращаются не за едой, а за состоянием.
                 </p>
+
             </div>
-            <div>
-                <img src="https://images.unsplash.com/photo-1559339352-11df8f99029a?q=80&w=1920&auto=format&fit=crop"
-                     alt="Интерьер ресторана"
-                     style="width: 100%; border-radius: 36px; box-shadow: var(--shadow-gold);">
+
+            <div style="
+                border-radius:34px;
+                overflow:hidden;
+                border:1px solid var(--border);
+                box-shadow:var(--shadow-soft);
+            ">
+                <img src="https://images.unsplash.com/photo-1559339352-11df8f99029a?q=80&w=1600&auto=format&fit=crop"
+                     style="width:100%; height:520px; object-fit:cover;">
             </div>
+
         </div>
 
-        <div style="background: var(--bg-card); padding: 60px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); margin-bottom: 80px;">
-            <div class="section-title" style="margin-bottom: 40px;">
-                <h2>Наш шеф-повар</h2>
+        <!-- CHEF -->
+        <div style="
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:36px;
+            padding:70px;
+            box-shadow:var(--shadow-soft);
+            margin-bottom:90px;
+        ">
+
+            <div class="section-title" style="margin-bottom:50px;">
+                <h2>Шеф-повар</h2>
             </div>
-            <div style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 50px; align-items: center;">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1920&auto=format&fit=crop"
-                         alt="Шеф-повар Алексей Морозов"
-                         style="width: 100%; border-radius: 28px; box-shadow: var(--shadow-gold);">
+
+            <div style="
+                display:grid;
+                grid-template-columns:0.9fr 1.1fr;
+                gap:60px;
+                align-items:center;
+            ">
+
+                <div style="
+                    border-radius:28px;
+                    overflow:hidden;
+                    box-shadow:var(--shadow-gold);
+                ">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1600&auto=format&fit=crop"
+                         style="width:100%; height:520px; object-fit:cover;">
                 </div>
+
                 <div>
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); margin-bottom: 16px; font-weight: 700;">
+
+                    <h3 style="
+                        font-family:'Playfair Display', serif;
+                        font-size:34px;
+                        color:var(--gold);
+                        margin-bottom:10px;
+                    ">
                         Алексей Морозов
                     </h3>
-                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 15px;">Шеф-повар, основатель ресторана</p>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 16px; line-height: 1.8;">
-                        Опыт работы в кулинарии — более 15 лет. Обучался в Париже и Токио, работал в ресторанах с мишленовскими звездами.
+
+                    <p style="color:var(--text-muted); margin-bottom:24px;">
+                        Шеф-повар • Основатель концепции
                     </p>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 16px; line-height: 1.8;">
-                        Концепция кухни Алексея — соединить классические техники с современными трендами, используя только свежие локальные ингредиенты.
+
+                    <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:18px;">
+                        Более 15 лет опыта, стажировки в Париже и Токио, работа в ресторанах высокой кухни.
                     </p>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">
-                        «Моя цель — создавать блюда, которые не просто вкусны, но и рассказывают историю»
+
+                    <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:18px;">
+                        Его подход — минимализм во вкусе, максимальная глубина продукта и чистая гастрономия без лишнего.
                     </p>
+
+                    <p style="color:var(--text-muted); font-style:italic; line-height:1.8;">
+                        «Хорошее блюдо — это не сложность, а точность»
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px;">
-            <div style="background: var(--bg-card); padding: 40px 32px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); text-align: center;">
-                <div style="font-size: 48px; color: var(--gold); font-weight: 700; margin-bottom: 16px;">2018</div>
-                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Год открытия</h4>
-                <p style="color: var(--text-muted); font-size: 14px;">Первый ресторан CityPark</p>
+        <!-- STATS -->
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(3, 1fr);
+            gap:28px;
+        ">
+
+            <div style="
+                background:var(--bg-card);
+                border:1px solid var(--border);
+                border-radius:30px;
+                padding:50px 30px;
+                text-align:center;
+                transition:0.3s ease;
+            ">
+
+                <div style="font-size:54px; color:var(--gold); font-weight:700; margin-bottom:10px;">
+                    2018
+                </div>
+
+                <div style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:8px;">
+                    Год основания
+                </div>
+
+                <div style="color:var(--text-muted); font-size:14px;">
+                    начало истории CityPark
+                </div>
+
             </div>
-            <div style="background: var(--bg-card); padding: 40px 32px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); text-align: center;">
-                <div style="font-size: 48px; color: var(--gold); font-weight: 700; margin-bottom: 16px;">15+</div>
-                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Опыт шефа</h4>
-                <p style="color: var(--text-muted); font-size: 14px;">лет в кулинарии</p>
+
+            <div style="
+                background:var(--bg-card);
+                border:1px solid var(--border);
+                border-radius:30px;
+                padding:50px 30px;
+                text-align:center;
+            ">
+
+                <div style="font-size:54px; color:var(--gold); font-weight:700; margin-bottom:10px;">
+                    15+
+                </div>
+
+                <div style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:8px;">
+                    Лет опыта
+                </div>
+
+                <div style="color:var(--text-muted); font-size:14px;">
+                    международная практика
+                </div>
+
             </div>
-            <div style="background: var(--bg-card); padding: 40px 32px; border-radius: 36px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); text-align: center;">
-                <div style="font-size: 48px; color: var(--gold); font-weight: 700; margin-bottom: 16px;">50+</div>
-                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Видов вина</h4>
-                <p style="color: var(--text-muted); font-size: 14px;">в винной карте</p>
+
+            <div style="
+                background:var(--bg-card);
+                border:1px solid var(--border);
+                border-radius:30px;
+                padding:50px 30px;
+                text-align:center;
+            ">
+
+                <div style="font-size:54px; color:var(--gold); font-weight:700; margin-bottom:10px;">
+                    50+
+                </div>
+
+                <div style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:8px;">
+                    Вин в карте
+                </div>
+
+                <div style="color:var(--text-muted); font-size:14px;">
+                    тщательно отобранные позиции
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
+
 {% endblock %}

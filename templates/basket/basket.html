@@ -1,301 +1,247 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Корзина{% endblock %}
+{% block title %}Корзина • CityPark{% endblock %}
 
 {% block content %}
 
-    <style>
-        .container {
-            width: min(1300px, 94%);
-            margin: 0 auto;
-            padding: 10px 0;
-        }
+<style>
+    .cart-page {
+        padding: 80px 0;
+    }
 
-        .cart-title {
-            text-align: center;
-            font-family: "Playfair Display", serif;
-            font-size: clamp(36px, 5vw, 56px);
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
+    .cart-title {
+        text-align: center;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(40px, 5vw, 56px);
+        color: var(--gold);
+        margin-bottom: 50px;
+    }
 
-        .cart-wrapper {
-            background: var(--bg-card);
-            border: 1px solid var(--border-gold);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: var(--shadow-soft);
-        }
+    .cart-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 36px;
+        padding: 40px;
+        box-shadow: var(--shadow-soft);
+    }
 
-        .cart-empty {
-            text-align: center;
-            padding: 70px 20px;
-        }
+    /* ITEM */
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--border);
+        transition: 0.25s ease;
+    }
 
-        .cart-empty h2 {
-            color: var(--gold);
-            font-family: "Playfair Display", serif;
-            font-size: 34px;
-            margin-bottom: 15px;
-        }
+    .cart-item:hover {
+        background: rgba(255,255,255,0.02);
+    }
 
-        .cart-empty p {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
+    .cart-left {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
 
+    .cart-image {
+        width: 88px;
+        height: 88px;
+        border-radius: 18px;
+        object-fit: cover;
+        border: 1px solid var(--border);
+        background: #111;
+    }
+
+    .cart-info h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        margin-bottom: 6px;
+        color: var(--text-primary);
+    }
+
+    .cart-info p {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    /* QTY */
+    .qty {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        overflow: hidden;
+        background: var(--bg-deep);
+    }
+
+    .qty button {
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: none;
+        color: var(--gold);
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 18px;
+    }
+
+    .qty button:hover {
+        background: rgba(212,175,55,0.08);
+    }
+
+    .qty span {
+        width: 42px;
+        text-align: center;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .price {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--gold);
+        min-width: 90px;
+        text-align: right;
+    }
+
+    .remove {
+        border: 1px solid rgba(255,80,80,0.25);
+        background: rgba(255,80,80,0.08);
+        color: #ff7a7a;
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .remove:hover {
+        background: rgba(255,80,80,0.15);
+    }
+
+    /* BOTTOM */
+    .cart-bottom {
+        margin-top: 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .total {
+        font-size: 14px;
+        color: var(--text-muted);
+    }
+
+    .total h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 42px;
+        color: var(--gold);
+        margin-top: 6px;
+    }
+
+    /* BUTTONS */
+    .btn {
+        padding: 14px 26px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.25s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #d4af37, #f0e6b8, #b8952a);
+        color: #0a0a0a;
+        box-shadow: var(--shadow-gold);
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+
+    .btn-danger {
+        background: rgba(255,80,80,0.08);
+        border: 1px solid rgba(255,80,80,0.25);
+        color: #ff7a7a;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    /* EMPTY */
+    .empty {
+        text-align: center;
+        padding: 80px 20px;
+        color: var(--text-muted);
+    }
+
+    .empty h2 {
+        font-family: "Playfair Display", serif;
+        color: var(--gold);
+        font-size: 34px;
+        margin-bottom: 10px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
         .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 25px;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-            transition: .3s;
-        }
-
-        .cart-item:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .cart-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .cart-image {
-            width: 95px;
-            height: 95px;
-            object-fit: cover;
-            border-radius: 18px;
-            border: 1px solid var(--border-gold);
-            background: #1d1d1d;
-        }
-
-        .cart-info h3 {
-            color: var(--text-primary);
-            font-size: 22px;
-            margin-bottom: 6px;
-        }
-
-        .cart-info p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .cart-right {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .qty-box {
-            display: flex;
-            align-items: center;
-            background: #1b1b1b;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-        }
-
-        .qty-btn {
-            width: 42px;
-            height: 42px;
-            background: transparent;
-            border: none;
-            color: var(--gold);
-            font-size: 20px;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .qty-btn:hover {
-            background: rgba(212, 175, 55, .08);
-        }
-
-        .qty-number {
-            width: 45px;
-            text-align: center;
-            font-weight: 600;
-            color: white;
-        }
-
-        .cart-price {
-            min-width: 100px;
-            text-align: right;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        .remove-btn {
-            background: rgba(255, 70, 70, .08);
-            border: 1px solid rgba(255, 70, 70, .2);
-            color: #ff6b6b;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .remove-btn:hover {
-            background: rgba(255, 70, 70, .18);
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .cart-bottom {
-            margin-top: 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: stretch;
         }
 
-        .total-box p {
-            color: var(--text-secondary);
+        .price {
+            text-align: left;
         }
+    }
+</style>
 
-        .total-box h2 {
-            color: var(--gold);
-            font-size: 42px;
-            font-weight: 800;
-            margin-top: 5px;
-        }
+<section class="cart-page">
 
-        .cart-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
+<div class="container">
 
-        .btn {
-            padding: 15px 28px;
-            border-radius: 999px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: .3s;
-            text-decoration: none;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-        }
+    <div class="cart-title">Ваша корзина</div>
 
-        .btn-primary {
-            background: var(--gradient-gold);
-            color: #0a0a0a;
-            box-shadow: var(--shadow-gold);
-        }
+    <div class="cart-box">
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
+        <div id="cart-items"></div>
 
-        .btn-danger {
-            background: transparent;
-            border: 1px solid rgba(255, 80, 80, .3);
-            color: #ff7b7b;
-        }
+        <div class="cart-bottom">
 
-        .btn-danger:hover {
-            background: rgba(255, 80, 80, .1);
-        }
+            <div class="total">
+                <div>Общая сумма</div>
+                <h2 id="total">0 ₽</h2>
+            </div>
 
-        .btn-success {
-            background: var(--gradient-gold);
-            color: #0a0a0a;
-            box-shadow: var(--shadow-gold);
-        }
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
 
-        .btn-success:hover {
-            transform: translateY(-2px);
-        }
+                <button onclick="clearCart()" class="btn btn-danger">
+                    Очистить
+                </button>
 
-        .toast {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-card);
-            color: white;
-            border: 1px solid var(--border-gold);
-            padding: 15px 24px;
-            border-radius: 999px;
-            z-index: 9999;
-            box-shadow: var(--shadow-soft);
-        }
+                <a href="{% url 'index' %}" class="btn btn-outline">
+                    Продолжить
+                </a>
 
-        @media (max-width: 768px) {
-
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .cart-right {
-                width: 100%;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
-
-            .cart-bottom {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .cart-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .cart-title {
-                font-size: 38px;
-            }
-
-            .total-box h2 {
-                font-size: 34px;
-            }
-        }
-    </style>
-
-    <div class="container">
-
-        <h1 class="cart-title">Ваша корзина</h1>
-
-        <div class="cart-wrapper">
-
-            <div id="cart-items"></div>
-
-            <div class="cart-bottom">
-
-                <div class="total-box">
-                    <p>Общая сумма</p>
-                    <h2 id="total">0 ₽</h2>
-                </div>
-
-                <div class="cart-actions">
-
-                    <button onclick="clearCart()" class="btn btn-danger">
-                        Очистить корзину
-                    </button>
-
-                    <a href="{% url 'index' %}" class="btn btn-primary">
-                        Продолжить покупки
-                    </a>
-
-                    <button type="button"
-                            onclick="checkout()"
-                            class="btn btn-success">
-                        Оформить заказ
-                    </button>
-
-                </div>
+                <button onclick="checkout()" class="btn btn-primary">
+                    Оформить заказ
+                </button>
 
             </div>
 
@@ -303,236 +249,139 @@
 
     </div>
 
-    <script>
-        function showToast(message) {
+</div>
 
-            const toast = document.createElement('div');
+</section>
 
-            toast.className = 'toast';
-            toast.innerText = message;
+<script>
+function showToast(msg){
+    const t=document.createElement('div');
+    t.textContent=msg;
+    t.style.position="fixed";
+    t.style.bottom="20px";
+    t.style.left="50%";
+    t.style.transform="translateX(-50%)";
+    t.style.background="var(--bg-card)";
+    t.style.border="1px solid var(--border-gold)";
+    t.style.padding="12px 20px";
+    t.style.borderRadius="999px";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2000);
+}
 
-            document.body.appendChild(toast);
+function loadCart(){
+    let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+    let container=document.getElementById('cart-items');
+    let total=0;
 
-            setTimeout(() => {
-                toast.remove();
-            }, 2000);
-        }
+    if(cart.length===0){
+        container.innerHTML=`
+        <div class="empty">
+            <h2>Корзина пуста</h2>
+            <p>Добавьте блюда из меню</p>
+        </div>`;
+        document.getElementById('total').innerText="0 ₽";
+        return;
+    }
 
-        function loadCart() {
+    let html="";
 
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.forEach((item,i)=>{
+        let qty=item.quantity||1;
+        let sum=item.price*qty;
+        total+=sum;
 
-            cart = cart.filter(item =>
-                item.name &&
-                item.name !== 'undefined' &&
-                !isNaN(item.price)
-            );
+        html+=`
+        <div class="cart-item">
 
-            localStorage.setItem('cart', JSON.stringify(cart));
+            <div class="cart-left">
 
-            const container = document.getElementById('cart-items');
+                <img class="cart-image"
+                     src="${item.image||'https://via.placeholder.com/100'}">
 
-            let total = 0;
-
-            if (cart.length === 0) {
-
-                container.innerHTML = `
-            <div class="cart-empty">
-
-                <h2>Корзина пуста</h2>
-
-                <p>Добавьте блюда из меню 🍰</p>
-
-                <a href="/" class="btn btn-primary">
-                    Перейти в меню
-                </a>
-
-            </div>
-        `;
-
-                document.getElementById('total').innerText = '0 ₽';
-
-                return;
-            }
-
-            let html = '';
-
-            cart.forEach((item, index) => {
-
-                const quantity = item.quantity || 1;
-                const sum = item.price * quantity;
-
-                total += sum;
-
-                html += `
-            <div class="cart-item">
-
-                <div class="cart-left">
-
-                    <img src="${item.image || 'https://via.placeholder.com/100'}"
-                         class="cart-image"
-                         onerror="this.src='https://via.placeholder.com/100'">
-
-                    <div class="cart-info">
-
-                        <h3>${item.name}</h3>
-
-                        <p>${item.price} ₽ за штуку</p>
-
-                    </div>
-
-                </div>
-
-                <div class="cart-right">
-
-                    <div class="qty-box">
-
-                        <button class="qty-btn"
-                                onclick="changeQty(${index}, -1)">
-                            −
-                        </button>
-
-                        <div class="qty-number">
-                            ${quantity}
-                        </div>
-
-                        <button class="qty-btn"
-                                onclick="changeQty(${index}, 1)">
-                            +
-                        </button>
-
-                    </div>
-
-                    <div class="cart-price">
-                        ${sum} ₽
-                    </div>
-
-                    <button class="remove-btn"
-                            onclick="removeFromCart(${index})">
-                        ✕
-                    </button>
-
+                <div class="cart-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.price} ₽ / шт</p>
                 </div>
 
             </div>
-        `;
-            });
 
-            container.innerHTML = html;
+            <div class="qty">
+                <button onclick="changeQty(${i},-1)">−</button>
+                <span>${qty}</span>
+                <button onclick="changeQty(${i},1)">+</button>
+            </div>
 
-            document.getElementById('total').innerText =
-                total + ' ₽';
+            <div class="price">${sum} ₽</div>
+
+            <button class="remove" onclick="removeItem(${i})">✕</button>
+
+        </div>`;
+    });
+
+    container.innerHTML=html;
+    document.getElementById('total').innerText=total+" ₽";
+}
+
+function changeQty(i,d){
+    let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+    cart[i].quantity=(cart[i].quantity||1)+d;
+
+    if(cart[i].quantity<=0){
+        cart.splice(i,1);
+        showToast("Удалено");
+    }
+
+    localStorage.setItem('cart',JSON.stringify(cart));
+    loadCart();
+}
+
+function removeItem(i){
+    let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+    cart.splice(i,1);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    showToast("Удалено");
+    loadCart();
+}
+
+function clearCart(){
+    localStorage.removeItem('cart');
+    showToast("Корзина очищена");
+    loadCart();
+}
+
+function checkout(){
+    let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+
+    fetch("/checkout/",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "X-CSRFToken":getCookie("csrftoken")
+        },
+        body:JSON.stringify({cart})
+    })
+    .then(r=>r.json())
+    .then(d=>{
+        if(d.status==="ok"){
+            localStorage.removeItem("cart");
+            window.location.href="/order-success/"+d.order_id;
         }
+    });
+}
 
-        function changeQty(index, delta) {
-
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-            if (!cart[index].quantity) {
-                cart[index].quantity = 1;
-            }
-
-            cart[index].quantity += delta;
-
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-                showToast("❌ Товар удалён");
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-
-            loadCart();
+function getCookie(name){
+    let v=null;
+    document.cookie.split(";").forEach(c=>{
+        c=c.trim();
+        if(c.startsWith(name+"=")){
+            v=decodeURIComponent(c.split("=")[1]);
         }
+    });
+    return v;
+}
 
-        function removeFromCart(index) {
-
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-            showToast("❌ Товар удалён");
-
-            cart.splice(index, 1);
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-
-            loadCart();
-        }
-
-        function clearCart() {
-
-            if (confirm('Очистить корзину?')) {
-
-                localStorage.removeItem('cart');
-
-                showToast("🗑 Корзина очищена");
-
-                loadCart();
-            }
-        }
-
-        function checkout() {
-
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-            cart = cart.filter(item =>
-                item.name &&
-                item.price &&
-                !isNaN(item.price)
-            );
-
-            if (cart.length === 0) {
-                alert("Корзина пуста");
-                return;
-            }
-
-            fetch("/checkout/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": getCookie("csrftoken")
-                },
-                body: JSON.stringify({cart: cart})
-            })
-                .then(res => res.json())
-                .then(data => {
-
-                    if (data.status === "ok") {
-
-                        localStorage.removeItem("cart");
-
-                        window.location.href =
-                            "/order-success/" + data.order_id;
-
-                    } else {
-                        alert(data.message || "Ошибка оформления заказа");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Ошибка сети");
-                });
-        }
-
-        function getCookie(name) {
-
-            let cookieValue = null;
-
-            document.cookie.split(';').forEach(cookie => {
-
-                cookie = cookie.trim();
-
-                if (cookie.startsWith(name + '=')) {
-
-                    cookieValue = decodeURIComponent(
-                        cookie.substring(name.length + 1)
-                    );
-                }
-            });
-
-            return cookieValue;
-        }
-
-        loadCart();
-    </script>
+loadCart();
+</script>
 
 {% endblock %}
-

@@ -3,146 +3,264 @@
 {% block title %}CityPark • Ресторан{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div class="container">
-        <div class="hero-grid">
-            <div class="hero-content">
-                <div class="hero-badge">CityPark • Авторская кухня • Вино • Премиум сервис</div>
 
-                <h1 class="hero-title">
+<section class="hero" id="home" style="
+    min-height: calc(100vh - 84px);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 70px 0;
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.92)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+">
+
+    <div class="container">
+
+        <div style="
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        ">
+
+            <!-- LEFT -->
+            <div>
+
+                <div style="
+                    display:inline-flex;
+                    align-items:center;
+                    gap:10px;
+                    padding:10px 18px;
+                    border-radius:999px;
+                    background: rgba(212,175,55,0.10);
+                    border:1px solid var(--border-gold);
+                    color: var(--gold);
+                    font-size: 13px;
+                    letter-spacing: 0.3px;
+                    margin-bottom: 22px;
+                ">
+                    🍽 CityPark • Premium Dining • Wine • Fine Cuisine
+                </div>
+
+                <h1 style="
+                    font-family: 'Playfair Display', serif;
+                    font-size: clamp(54px, 7vw, 88px);
+                    line-height: 1.02;
+                    letter-spacing: -1.5px;
+                    margin-bottom: 22px;
+                    font-weight: 800;
+                ">
                     Ресторан,<br>
-                    <span>в который хочется</span><br>
+                    <span style="color: var(--gold);">в который хочется</span><br>
                     возвращаться
                 </h1>
 
-                <p class="hero-text">
-                    Утонченный ресторан в центре города с авторской кухней, изысканным винным списком и атмосферой для встреч, ужинов и особых моментов.
+                <p style="
+                    max-width: 620px;
+                    font-size: 18px;
+                    color: var(--text-secondary);
+                    line-height: 1.75;
+                    margin-bottom: 32px;
+                ">
+                    Утонченная кухня, премиальные вина и атмосфера современного ресторана в центре города.
+                    Пространство для встреч, вечеров и особых моментов.
                 </p>
 
-                <div class="hero-actions">
-                    <a href="{% url 'menu' %}" class="btn btn-gold">Смотреть меню</a>
-                    <a href="{% url 'booking' %}" class="btn btn-outline">Забронировать стол</a>
+                <div style="
+                    display:flex;
+                    gap:14px;
+                    flex-wrap:wrap;
+                    margin-bottom: 34px;
+                ">
+                    <a href="{% url 'menu' %}" class="btn">Смотреть меню</a>
+                    <a href="{% url 'menu' %}" class="btn btn-outline">Все блюда</a>
+                    <a href="{% url 'booking' %}" class="btn btn-outline">Бронь стола</a>
                 </div>
 
-                <div class="hero-stats">
-                    <div class="stat card">
-                        <strong>12:00–24:00</strong>
-                        <span>Ежедневно</span>
+                <!-- STATS -->
+                <div style="
+                    display:flex;
+                    gap:14px;
+                    flex-wrap:wrap;
+                ">
+
+                    <div style="
+                        padding:16px 18px;
+                        border-radius:18px;
+                        background: rgba(255,255,255,0.03);
+                        border:1px solid var(--border);
+                        min-width:150px;
+                    ">
+                        <div style="color:var(--gold); font-weight:700; font-size:18px;">12:00–24:00</div>
+                        <div style="color:var(--text-muted); font-size:12px;">Ежедневно</div>
                     </div>
-                    <div class="stat card">
-                        <strong>4.9/5</strong>
-                        <span>Отзывы гостей</span>
+
+                    <div style="
+                        padding:16px 18px;
+                        border-radius:18px;
+                        background: rgba(255,255,255,0.03);
+                        border:1px solid var(--border);
+                        min-width:120px;
+                    ">
+                        <div style="color:var(--gold); font-weight:700; font-size:18px;">4.9</div>
+                        <div style="color:var(--text-muted); font-size:12px;">Рейтинг</div>
                     </div>
-                    <div class="stat card">
-                        <strong>50+</strong>
-                        <span>Видов вина</span>
+
+                    <div style="
+                        padding:16px 18px;
+                        border-radius:18px;
+                        background: rgba(255,255,255,0.03);
+                        border:1px solid var(--border);
+                        min-width:120px;
+                    ">
+                        <div style="color:var(--gold); font-weight:700; font-size:18px;">50+</div>
+                        <div style="color:var(--text-muted); font-size:12px;">Вин</div>
                     </div>
+
                 </div>
+
             </div>
 
-            <div class="hero-image card">
-                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1920&auto=format&fit=crop" alt="Авторское блюдо">
-                <div class="hero-image-bar">
-                    <span>Фирменная утка с ягодным соусом</span>
-                    <a href="{% url 'menu' %}" class="btn btn-gold">Выбрать</a>
+            <!-- RIGHT CARD -->
+            <div style="
+                background: rgba(17,17,17,0.92);
+                border:1px solid var(--border-gold);
+                border-radius: 34px;
+                padding: 18px;
+                backdrop-filter: blur(18px);
+                box-shadow: var(--shadow-soft);
+            ">
+
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop"
+                     style="width:100%; height:460px; object-fit:cover; border-radius:26px;">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-top:16px;
+                    gap:10px;
+                ">
+                    <div style="color:var(--text-secondary); font-size:14px;">
+                        Фирменное блюдо шефа
+                    </div>
+
+                    <a href="{% url 'menu' %}" class="btn btn-small">Выбрать</a>
                 </div>
+
             </div>
+
         </div>
     </div>
 </section>
 
+<!-- FEATURES -->
 <section class="section">
     <div class="container">
+
         <div class="section-title">
             <h2>Почему выбирают нас</h2>
-            <p>Каждая деталь пространства работает на атмосферу, вкус и ощущение премиального сервиса.</p>
+            <p>Каждая деталь создана для премиального опыта</p>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card card">
-                <div class="feature-icon">★</div>
-                <h3>Авторская кухня</h3>
-                <p>Уникальные блюда от шефа с акцентом на эстетику, вкус и современную подачу.</p>
-                <a href="{% url 'menu' %}">Меню →</a>
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+            gap:28px;
+        ">
+
+            <div style="background:var(--bg-card); padding:34px; border-radius:28px; border:1px solid var(--border);">
+                <h3 style="font-family:'Playfair Display'; font-size:20px; margin-bottom:10px;">Авторская кухня</h3>
+                <p style="color:var(--text-muted); line-height:1.6;">Уникальные блюда, созданные шеф-поваром.</p>
             </div>
 
-            <div class="feature-card card">
-                <div class="feature-icon">◎</div>
-                <h3>Изысканное вино</h3>
-                <p>Подборка вин для ужина, встреч и special occasions в правильной атмосфере.</p>
-                <a href="{% url 'menu' %}">Винная карта →</a>
+            <div style="background:var(--bg-card); padding:34px; border-radius:28px; border:1px solid var(--border);">
+                <h3 style="font-family:'Playfair Display'; font-size:20px; margin-bottom:10px;">Изысканное вино</h3>
+                <p style="color:var(--text-muted); line-height:1.6;">Коллекция вин со всего мира.</p>
             </div>
 
-            <div class="feature-card card">
-                <div class="feature-icon">◉</div>
-                <h3>Уютная локация</h3>
-                <p>Пространство, где можно спокойно говорить, отдыхать и проводить важные вечера.</p>
-                <a href="{% url 'contacts' %}">Найти нас →</a>
+            <div style="background:var(--bg-card); padding:34px; border-radius:28px; border:1px solid var(--border);">
+                <h3 style="font-family:'Playfair Display'; font-size:20px; margin-bottom:10px;">Атмосфера</h3>
+                <p style="color:var(--text-muted); line-height:1.6;">Тихое премиальное пространство.</p>
             </div>
 
-            <div class="feature-card card">
-                <div class="feature-icon">◔</div>
-                <h3>Живая музыка</h3>
-                <p>По вечерам — мягкий свет, живая музыка и настроение настоящего fine dining.</p>
-                <a href="{% url 'about' %}">Афиша →</a>
-            </div>
         </div>
+
     </div>
 </section>
 
-<section class="section section-alt">
+<!-- REVIEWS -->
+<section class="section" style="background:var(--bg-card);">
+
     <div class="container">
+
         <div class="section-title">
             <h2>Отзывы гостей</h2>
-            <p>Нам доверяют ужины, встречи и особенные вечера.</p>
+            <p>Реальные впечатления наших посетителей</p>
         </div>
 
-        <div class="reviews-grid">
-            <div class="review-card card">
-                <div class="stars">★★★★★</div>
-                <p>Очень красивая атмосфера, вкусная еда и сервис на уровне. Чувствуется премиальный подход.</p>
-                <h4>Анна</h4>
+        <div style="display:flex; gap:22px; flex-wrap:wrap;">
+
+            <div style="flex:1; min-width:260px; background:var(--bg-deep); padding:28px; border-radius:24px; border:1px solid var(--border);">
+                <div style="color:var(--gold); margin-bottom:10px;">★★★★★</div>
+                <p style="color:var(--text-muted); line-height:1.7;">Очень атмосферное место.</p>
+                <div style="margin-top:14px; font-weight:600;">Анна</div>
             </div>
 
-            <div class="review-card card">
-                <div class="stars">★★★★★</div>
-                <p>Идеальное место для ужина. Особенно понравилась подача блюд и винная карта.</p>
-                <h4>Мария</h4>
+            <div style="flex:1; min-width:260px; background:var(--bg-deep); padding:28px; border-radius:24px; border:1px solid var(--border);">
+                <div style="color:var(--gold); margin-bottom:10px;">★★★★★</div>
+                <p style="color:var(--text-muted); line-height:1.7;">Лучшее вино и кухня.</p>
+                <div style="margin-top:14px; font-weight:600;">Мария</div>
             </div>
 
-            <div class="review-card card">
-                <div class="stars">★★★★☆</div>
-                <p>Стильно, спокойно, красиво. Отличное место для встреч и вечеров с близкими.</p>
-                <h4>Игорь</h4>
+            <div style="flex:1; min-width:260px; background:var(--bg-deep); padding:28px; border-radius:24px; border:1px solid var(--border);">
+                <div style="color:var(--gold); margin-bottom:10px;">★★★★☆</div>
+                <p style="color:var(--text-muted); line-height:1.7;">Очень достойный ресторан.</p>
+                <div style="margin-top:14px; font-weight:600;">Игорь</div>
             </div>
+
         </div>
+
     </div>
+
 </section>
 
+<!-- CONTACT -->
 <section class="section">
+
     <div class="container">
+
         <div class="section-title">
             <h2>Контакты</h2>
-            <p>Приходите к нам или оставьте сообщение.</p>
+            <p>Свяжитесь с нами</p>
         </div>
 
-        <div class="contact-card card">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <p><strong>Адрес:</strong> ул. CityPark Avenue, 25</p>
-                    <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
-                    <p><strong>Время работы:</strong> Пн–Вс 12:00–24:00</p>
-                    <p><strong>Email:</strong> info@citypark.ru</p>
-                </div>
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:40px;
+        ">
 
-                <form class="contact-form">
-                    <input type="text" placeholder="Ваше имя">
-                    <input type="email" placeholder="Ваш email">
-                    <textarea placeholder="Ваше сообщение"></textarea>
-                    <button class="btn btn-gold" type="submit">Отправить</button>
-                </form>
+            <div style="background:var(--bg-card); padding:30px; border-radius:28px; border:1px solid var(--border);">
+                <div>📍 CityPark Avenue 25</div>
+                <div>📞 +7 999 123 45 67</div>
+                <div>⏰ 12:00–24:00</div>
+                <div>✉ info@citypark.ru</div>
             </div>
+
+            <form style="display:grid; gap:12px;">
+                <input style="padding:14px; border-radius:16px; border:1px solid var(--border); background:var(--bg-deep); color:var(--text);" placeholder="Имя">
+                <input style="padding:14px; border-radius:16px; border:1px solid var(--border); background:var(--bg-deep); color:var(--text);" placeholder="Email">
+                <textarea style="padding:14px; border-radius:16px; border:1px solid var(--border); background:var(--bg-deep); color:var(--text); min-height:120px;" placeholder="Сообщение"></textarea>
+                <button class="btn">Отправить</button>
+            </form>
+
         </div>
+
     </div>
+
 </section>
+
 {% endblock %}
