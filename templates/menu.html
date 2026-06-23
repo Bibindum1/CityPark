@@ -4,398 +4,244 @@
 
 {% block content %}
 
-<style>
-    .menu-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 32px;
-        align-items: stretch;
-    }
+<section class="menu-hero">
 
-    .menu-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-height: 680px;
-        transition: .3s;
-    }
-
-    .menu-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
-    }
-
-    .menu-card img {
-        width: 100%;
-        height: 240px;
-        object-fit: cover;
-        display: block;
-    }
-
-    .menu-content {
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .menu-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-
-    .menu-title {
-        font-size: 22px;
-        font-weight: 600;
-        color: var(--text-primary);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 56px;
-    }
-
-    .menu-price {
-        color: var(--gold);
-        font-size: 22px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    .menu-description {
-        color: var(--text-muted);
-        line-height: 1.6;
-        font-size: 14px;
-        margin-bottom: 18px;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 70px;
-    }
-
-    .menu-category {
-        display: inline-flex;
-        align-items: center;
-        width: max-content;
-        padding: 7px 14px;
-        border-radius: 999px;
-        background: rgba(212, 175, 55, .12);
-        color: var(--gold);
-        border: 1px solid var(--border-gold);
-        font-size: 12px;
-        margin-bottom: 20px;
-    }
-
-    .menu-actions {
-        margin-top: auto;
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .small-btn {
-        flex: 1;
-        min-width: 130px;
-        padding: 12px 18px;
-        border: none;
-        border-radius: 999px;
-        cursor: pointer;
-        font: inherit;
-        font-size: 13px;
-        font-weight: 600;
-        transition: .3s;
-    }
-
-    .add-cart {
-        background: var(--gold);
-        color: #111;
-    }
-
-    .add-cart:hover {
-        transform: translateY(-2px);
-    }
-
-    .add-fav {
-        background: rgba(255, 255, 255, .05);
-        color: var(--text-secondary);
-        border: 1px solid var(--border);
-    }
-
-    .add-fav.active {
-        background: rgba(212, 175, 55, .12);
-        color: var(--gold);
-        border-color: var(--border-gold);
-    }
-
-    .filter-btn {
-        border: 1px solid var(--border);
-        background: var(--bg-card);
-        color: var(--text-secondary);
-        padding: 12px 24px;
-        border-radius: 999px;
-        cursor: pointer;
-        transition: .3s;
-    }
-
-    .filter-btn.active {
-        background: var(--gold);
-        color: #111;
-    }
-
-    @media (max-width: 768px) {
-        .menu-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .menu-card {
-            min-height: auto;
-        }
-
-        .menu-actions {
-            flex-direction: column;
-        }
-
-        .small-btn {
-            width: 100%;
-        }
-    }
-</style>
-
-<section class="section">
     <div class="container">
-        <div class="section-title">
-            <h2>Меню ресторана</h2>
-            <p>Авторская кухня премиум-класса от нашего шеф-повара</p>
+
+        <div class="menu-hero-content">
+
+            <span class="menu-label">
+                Авторская кухня
+            </span>
+
+            <h1 class="menu-main-title">
+                Меню ресторана
+            </h1>
+
+            <p class="menu-main-text">
+                Уникальные блюда, приготовленные из свежих ингредиентов.
+                Откройте для себя вкусы, созданные нашим шеф-поваром.
+            </p>
+
         </div>
 
-        <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:40px;">
-            <button class="filter-btn active" data-filter="all">Все</button>
-            <button class="filter-btn" data-filter="завтраки">Завтраки</button>
-            <button class="filter-btn" data-filter="салаты">Салаты</button>
-            <button class="filter-btn" data-filter="морепродукты">Морепродукты</button>
-            <button class="filter-btn" data-filter="мясо">Мясо</button>
-            <button class="filter-btn" data-filter="рыба">Рыба</button>
-            <button class="filter-btn" data-filter="десерты">Десерты</button>
-            <button class="filter-btn" data-filter="вино">Вино</button>
-            <button class="filter-btn" data-filter="напитки">Напитки</button>
+    </div>
+
+</section>
+
+<section class="menu-section">
+
+    <div class="container">
+
+        <div class="menu-toolbar">
+
+            <form method="get" class="menu-search-form">
+
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ query|default:'' }}"
+                    placeholder="Поиск блюда..."
+                    class="menu-search-input"
+                >
+
+                <select name="sort" class="menu-sort">
+
+                    <option value="">
+                        Сортировка
+                    </option>
+
+                    <option
+                        value="name"
+                        {% if current_sort == "name" %}selected{% endif %}
+                    >
+                        По названию
+                    </option>
+
+                    <option
+                        value="price_asc"
+                        {% if current_sort == "price_asc" %}selected{% endif %}
+                    >
+                        Цена ↑
+                    </option>
+
+                    <option
+                        value="price_desc"
+                        {% if current_sort == "price_desc" %}selected{% endif %}
+                    >
+                        Цена ↓
+                    </option>
+
+                </select>
+
+                <button type="submit" class="btn btn-primary">
+                    Найти
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="category-filter">
+
+            <button
+                type="button"
+                class="category-btn active"
+                data-filter="all"
+            >
+                Все блюда
+            </button>
+
+            {% for cat in categories %}
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-filter="{{ cat.name }}"
+                >
+                    {{ cat.name }}
+                </button>
+
+            {% endfor %}
+
         </div>
 
         <div class="menu-grid">
+
             {% for dish in dishes %}
+
                 <article
-                    class="menu-card"
-                    data-category="{{ dish.category.name|lower }}"
+                    class="dish-card card reveal"
+                    data-category="{{ dish.category.name }}"
                     data-id="{{ dish.id }}"
                     data-name="{{ dish.name }}"
                     data-price="{{ dish.price }}"
                 >
-                    {% if dish.image %}
-                        <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
-                    {% else %}
-                        <img src="https://via.placeholder.com/600x400?text=Нет+фото" alt="{{ dish.name }}">
-                    {% endif %}
 
-                    <div class="menu-content">
-                        <div class="menu-header">
-                            <h3 class="menu-title">{{ dish.name }}</h3>
-                            <div class="menu-price">{{ dish.price }} ₽</div>
-                        </div>
+                    <div class="dish-image-wrapper">
 
-                        <p class="menu-description">{{ dish.description }}</p>
+                        {% if dish.image %}
 
-                        <span class="menu-category">{{ dish.category.name }}</span>
+                            <img
+                                src="{{ dish.image.url }}"
+                                alt="{{ dish.name }}"
+                                class="dish-image"
+                            >
 
-                        <div class="menu-actions">
-                            <button type="button" class="small-btn add-cart">В корзину</button>
-                            <button type="button" class="small-btn add-fav">❤ Избранное</button>
-                        </div>
+                        {% else %}
+
+                            <img
+                                src="https://via.placeholder.com/800x600"
+                                alt="{{ dish.name }}"
+                                class="dish-image"
+                            >
+
+                        {% endif %}
+
+                        <button
+                            type="button"
+                            class="favorite-btn"
+                        >
+                            ❤
+                        </button>
+
                     </div>
+
+                    <div class="dish-content">
+
+                        <span class="dish-category">
+                            {{ dish.category.name }}
+                        </span>
+
+                        <div class="dish-top">
+
+                            <h3 class="dish-title">
+                                {{ dish.name }}
+                            </h3>
+
+                            <span class="dish-price">
+                                {{ dish.price }} ₽
+                            </span>
+
+                        </div>
+
+                        <p class="dish-description">
+                            {{ dish.description }}
+                        </p>
+
+                        <div class="dish-footer">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary add-cart-btn"
+                            >
+                                В корзину
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary details-btn"
+                            >
+                                Подробнее
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </article>
+
             {% empty %}
-                <div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--text-muted);">
-                    <h3 style="font-size:28px;margin-bottom:15px;color:var(--text-primary);">Меню пока пустое</h3>
-                    <p>Администратор ещё не добавил блюда.</p>
+
+                <div class="menu-empty">
+
+                    <h3>
+                        Блюда не найдены
+                    </h3>
+
+                    <p>
+                        Попробуйте изменить параметры поиска.
+                    </p>
+
                 </div>
+
             {% endfor %}
+
         </div>
+
     </div>
+
 </section>
 
-{% endblock %}
+<section class="menu-banner">
 
-{% block scripts %}
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const buttons = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".menu-card");
+    <div class="container">
 
-    function showToast(message) {
-        const toast = document.createElement("div");
-        toast.textContent = message;
-        toast.style.position = "fixed";
-        toast.style.left = "50%";
-        toast.style.bottom = "30px";
-        toast.style.transform = "translateX(-50%)";
-        toast.style.background = "var(--gold)";
-        toast.style.color = "#111";
-        toast.style.padding = "14px 24px";
-        toast.style.borderRadius = "999px";
-        toast.style.fontWeight = "600";
-        toast.style.zIndex = "9999";
-        toast.style.boxShadow = "0 10px 30px rgba(0,0,0,.25)";
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2000);
-    }
+        <div class="menu-banner-card card">
 
-    function getCart() {
-        return JSON.parse(localStorage.getItem("cart") || "[]");
-    }
+            <div>
 
-    function getFavorites() {
-        return JSON.parse(localStorage.getItem("favorites") || "[]");
-    }
+                <h2>
+                    Забронируйте столик заранее
+                </h2>
 
-    function saveCart(cart) {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }
+                <p>
+                    Лучшие места и персональное обслуживание ждут вас.
+                </p>
 
-    function saveFavorites(favorites) {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    }
+            </div>
 
-    function updateCounters() {
-        const cart = getCart();
-        const favorites = getFavorites();
+            <a
+                href="{% url 'booking' %}"
+                class="btn btn-primary"
+            >
+                Забронировать
+            </a>
 
-        const cartCounter = document.getElementById("cartCount");
-        const favCounter = document.getElementById("favCount");
+        </div>
 
-        if (cartCounter) cartCounter.textContent = cart.length;
-        if (favCounter) favCounter.textContent = favorites.length;
-    }
+    </div>
 
-    function updateButtons() {
-        const cart = getCart();
-        const favorites = getFavorites();
+</section>
 
-        document.querySelectorAll(".menu-card").forEach(card => {
-            const id = String(card.dataset.id);
-            const cartBtn = card.querySelector(".add-cart");
-            const favBtn = card.querySelector(".add-fav");
-
-            const inCart = cart.some(item => String(item.id) === id);
-            const inFav = favorites.some(item => String(item.id) === id);
-
-            if (cartBtn) {
-                cartBtn.textContent = inCart ? "✓ В корзине" : "В корзину";
-            }
-
-            if (favBtn) {
-                favBtn.textContent = inFav ? "❤ В избранном" : "❤ Избранное";
-                favBtn.classList.toggle("active", inFav);
-            }
-        });
-    }
-
-    function addToCart(id, name, price, image) {
-        let cart = getCart();
-        id = String(id);
-
-        const exists = cart.some(item => String(item.id) === id);
-
-        if (exists) {
-            cart = cart.filter(item => String(item.id) !== id);
-            showToast("❌ Удалено из корзины");
-        } else {
-            cart.push({
-                id: id,
-                name: name,
-                price: price,
-                quantity: 1,
-                image: image
-            });
-            showToast("🛒 Добавлено в корзину");
-        }
-
-        saveCart(cart);
-        updateButtons();
-        updateCounters();
-    }
-
-    function toggleFavorite(id, name, price, image) {
-        let favorites = getFavorites();
-        id = String(id);
-
-        const exists = favorites.some(item => String(item.id) === id);
-
-        if (exists) {
-            favorites = favorites.filter(item => String(item.id) !== id);
-            showToast("💔 Удалено из избранного");
-        } else {
-            favorites.push({
-                id: id,
-                name: name,
-                price: price,
-                image: image
-            });
-            showToast("❤ Добавлено в избранное");
-        }
-
-        saveFavorites(favorites);
-        updateButtons();
-        updateCounters();
-    }
-
-    buttons.forEach(button => {
-        button.addEventListener("click", function () {
-            buttons.forEach(btn => btn.classList.remove("active"));
-            this.classList.add("active");
-
-            const filter = this.dataset.filter.toLowerCase().trim();
-
-            cards.forEach(card => {
-                const category = (card.dataset.category || "").toLowerCase().trim();
-                card.style.display = (filter === "all" || category === filter) ? "flex" : "none";
-            });
-        });
-    });
-
-    document.querySelectorAll(".add-cart").forEach(button => {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            const card = this.closest(".menu-card");
-            addToCart(
-                card.dataset.id,
-                card.dataset.name,
-                Number(card.dataset.price),
-                card.querySelector("img").src
-            );
-        });
-    });
-
-    document.querySelectorAll(".add-fav").forEach(button => {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            const card = this.closest(".menu-card");
-            toggleFavorite(
-                card.dataset.id,
-                card.dataset.name,
-                Number(card.dataset.price),
-                card.querySelector("img").src
-            );
-        });
-    });
-
-    updateButtons();
-    updateCounters();
-});
-</script>
 {% endblock %}

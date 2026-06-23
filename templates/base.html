@@ -1,243 +1,141 @@
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}CityPark • Ресторан{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CityPark{% endblock %}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700;800&display=swap"
-          rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-deep: #0a0a0a;
-            --bg-card: #121212;
-            --bg-card-hover: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #b8b8b8;
-            --text-muted: #6b6b6b;
-            --gold: #d4af37;
-            --gold-light: #f0e6b8;
-            --gold-dark: #b8952a;
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --border: rgba(255, 255, 255, 0.08);
-            --border-gold: rgba(212, 175, 55, 0.2);
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --shadow-gold: 0 8px 40px rgba(212, 175, 55, 0.15);
-            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0e6b8 50%, #b8952a 100%);
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box }
-        html { scroll-behavior: smooth }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            font-size: 15px;
-        }
-        a { color: inherit; text-decoration: none }
-        img { max-width: 100%; display: block }
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-        .container {
-            width: min(1300px, 94%);
-            margin: 0 auto;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            border-radius: 999px;
-            background: var(--gradient-gold);
-            color: #0a0a0a;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-            box-shadow: var(--shadow-gold);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 50px rgba(212, 175, 55, 0.25);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: var(--text-primary);
-            box-shadow: none;
-        }
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .section { padding: 80px 0; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(36px, 5vw, 56px);
-            color: var(--gold);
-            margin-bottom: 16px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .section-title h2::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: var(--gradient-gold);
-            margin: 20px auto 0;
-            border-radius: 2px;
-        }
-        .section-title p {
-            color: var(--text-secondary);
-            font-size: 17px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-        .header-inner {
-            min-height: 84px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            padding: 0 20px;
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 34px;
-            font-weight: 800;
-            color: var(--gold);
-            letter-spacing: -1px;
-        }
-        nav {
-            display: flex;
-            gap: 28px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        nav a {
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.25s;
-            color: var(--text-secondary);
-        }
-        nav a:hover { color: var(--gold); }
-        nav a.active { color: var(--gold); }
-
-        .btn-register {
-            background: var(--gradient-gold);
-            color: #0a0a0a;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 600;
-            font-size: 13px;
-            border: 1px solid transparent;
-            transition: all 0.3s;
-            box-shadow: var(--shadow-gold);
-        }
-        .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.25);
-        }
-
-        .nav-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-gold);
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--text-primary);
-        }
-        .nav-counter:hover {
-            background: var(--gold);
-            color: #0a0a0a;
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
-        .nav-counter span {
-            background: var(--gold);
-            color: #0a0a0a;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        footer {
-            padding: 36px 0;
-            text-align: center;
-            background: var(--bg-card);
-            color: var(--text-muted);
-            margin-top: 80px;
-            border-top: 1px solid var(--border);
-        }
-        footer p { font-size: 14px; }
-
-        @media (max-width: 768px) {
-            .header-inner {
-                padding: 16px 20px;
-                flex-direction: column;
-                min-height: auto;
-            }
-            nav { gap: 16px; }
-            nav a { font-size: 13px; }
-        }
-    </style>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
 
-<header>
-    <div class="container header-inner">
-        <div class="logo">CityPark</div>
-        <nav>
-            <a href="{% url 'index' %}" class="{% if active_page == 'index' %}active{% endif %}">Главная</a>
-            <a href="{% url 'menu' %}" class="{% if active_page == 'menu' %}active{% endif %}">Меню</a>
-            <a href="{% url 'booking' %}" class="{% if active_page == 'booking' %}active{% endif %}">Бронирование</a>
-            <a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">О нас</a>
-            <a href="{% url 'wine' %}" class="{% if active_page == 'wine' %}active{% endif %}">Винная карта</a>
-            <a href="{% url 'contacts' %}" class="{% if active_page == 'contacts' %}active{% endif %}">Контакты</a>
-            <a href="{% url 'registration' %}" class="btn-register">Регистрация</a>
-            <a href="{% url 'basket' %}" class="nav-counter">
-                 Корзина <span id="cartCount">0</span>
+<div class="background-blur blur-1"></div>
+<div class="background-blur blur-2"></div>
+
+<header class="header">
+    <div class="container">
+
+        <a href="{% url 'index' %}" class="logo">
+            City<span>Park</span>
+        </a>
+
+        <nav class="nav" id="nav">
+
+            <a href="{% url 'index' %}"
+               class="{% if active_page == 'index' %}active{% endif %}">
+                Главная
             </a>
-            <a href="{% url 'favourites' %}" class="nav-counter">
-                Избранное <span id="favCount">0</span>
+
+            <a href="{% url 'menu' %}"
+               class="{% if active_page == 'menu' %}active{% endif %}">
+                Меню
             </a>
-            <a href="{% url 'profile' %}" class="btn-register">👤</a>
+
+            <a href="{% url 'booking' %}"
+               class="{% if active_page == 'booking' %}active{% endif %}">
+                Бронирование
+            </a>
+
+            <a href="{% url 'about' %}"
+               class="{% if active_page == 'about' %}active{% endif %}">
+                О ресторане
+            </a>
+
         </nav>
+
+        <div class="header-actions">
+
+            <a href="{% url 'registration' %}" class="btn btn-secondary">
+                Регистрация
+            </a>
+
+            <a href="{% url 'profile' %}" class="btn btn-primary">
+                Профиль
+            </a>
+
+            <button class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
     </div>
 </header>
 
-<main>
-    {% block content %}{% endblock %}
+{% if messages %}
+<div class="notifications">
+
+    {% for message in messages %}
+        <div class="notification {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
+<main class="main">
+    {% block content %}
+    {% endblock %}
 </main>
 
-<footer>
+<footer class="footer">
+
     <div class="container">
-        <p>© 2026 CityPark Ресторан. Все права защищены.</p>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CityPark</h3>
+
+                <p>
+                    Современный ресторан с авторской кухней,
+                    атмосферой комфорта и высоким уровнем сервиса.
+                </p>
+            </div>
+
+            <div>
+                <h4>Навигация</h4>
+
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'menu' %}">Меню</a>
+                <a href="{% url 'booking' %}">Бронирование</a>
+                <a href="{% url 'about' %}">О ресторане</a>
+            </div>
+
+            <div>
+                <h4>Контакты</h4>
+
+                <p>+49 XXX XXX XX XX</p>
+                <p>info@citypark.com</p>
+                <p>Ежедневно 10:00–23:00</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 CityPark. Все права защищены.
+        </div>
+
     </div>
+
 </footer>
 
-{% block scripts %}{% endblock %}
+<script src="{% static 'js.js' %}"></script>
+
+{% block scripts %}
+{% endblock %}
+
 </body>
 </html>
