@@ -243,8 +243,13 @@
                                 </div>
 
                                 <div class="menu-actions">
-                                    <button type="button" class="small-btn add-cart">В корзину</button>
-                                    <button type="button" class="small-btn add-fav">❤</button>
+                                    <button class="small-btn add-cart" onclick="addToCart({{ dish.id }})">
+                                        В корзину
+                                    </button>
+
+                                    <button class="small-btn add-fav" onclick="toggleFav({{ dish.id }})">
+                                        В избранное
+                                    </button>
                                 </div>
 
                             </div>
@@ -354,5 +359,96 @@
             });
 
         });
+
+        function updateCounters() {
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            let favs = JSON.parse(localStorage.getItem("favs") || "[]");
+
+            let cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
+
+            document.getElementById("cartCount").innerText = cartCount;
+            document.getElementById("favCount").innerText = favs.length;
+        }
+
+        updateCounters();
+    </script>
+
+    <script>
+        function addToCart(id) {
+            fetch(`/cart/add/${id}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            })
+        }
+
+        function toggleFav(id) {
+            fetch(`/fav/toggle/${id}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            })
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+    <script>
+        function addToCart(id) {
+            fetch(`/cart/add/${id}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            }).then(r => r.json())
+                .then(data => console.log("cart:", data));
+        }
+
+        function removeFromCart(id) {
+            fetch(`/cart/remove/${id}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            }).then(r => r.json())
+                .then(data => console.log("cart:", data));
+        }
+
+        function toggleFav(id) {
+            fetch(`/fav/toggle/${id}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            }).then(r => r.json())
+                .then(data => console.log("fav:", data));
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie) {
+                document.cookie.split(';').forEach(c => {
+                    c = c.trim();
+                    if (c.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(c.split('=')[1]);
+                    }
+                });
+            }
+            return cookieValue;
+        }
     </script>
 {% endblock %}
